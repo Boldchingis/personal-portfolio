@@ -231,7 +231,7 @@ function ElasticCursor() {
       {/* Small dot cursor */}
       <div
         className={cn(
-          "w-3 h-3 rounded-full fixed",
+          "w-2 h-2 rounded-full fixed bg-white",
           "translate-x-[-50%] translate-y-[-50%]",
           "pointer-events-none transition-none duration-300"
         )}

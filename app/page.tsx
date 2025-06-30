@@ -1,8 +1,8 @@
 import ClickSpark from "./ClickSpark/ClickSpark";
-import ElasticCursor from "./utils/ElasticCursor";
 import Hero from "./_components/Hero";
 import Main from "./_components/Main";
 import { SlideTabsExample } from "./SlideNav/SlideNav";
+import Footer from "./_components/Footer";
 export default function Home() {
   return (
     <div>
@@ -16,7 +16,7 @@ export default function Home() {
         <SlideTabsExample />
         <Hero />
         <Main />
-        <ElasticCursor />
+        <Footer />
       </ClickSpark>
     </div>
   );
