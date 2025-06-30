@@ -1,6 +1,8 @@
 import ClickSpark from "./ClickSpark/ClickSpark";
 import ElasticCursor from "./utils/ElasticCursor";
 import Hero from "./_components/Hero";
+import Main from "./_components/Main";
+import { SlideTabsExample } from "./SlideNav/SlideNav";
 export default function Home() {
   return (
     <div>
@@ -11,7 +13,9 @@ export default function Home() {
         sparkCount={11}
         duration={400}
       >
+        <SlideTabsExample />
         <Hero />
+        <Main />
         <ElasticCursor />
       </ClickSpark>
     </div>
