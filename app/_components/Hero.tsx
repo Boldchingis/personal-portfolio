@@ -14,7 +14,7 @@ export default function Hero() {
      <ElasticCursor />
       <div className="flex flex-col items-center justify-center h-screen">
         <div style={{ width: "100%", height: "600px", position: "relative" }}>
-          <Threads amplitude={1} distance={0} enableMouseInteraction={true} />
+          <Threads amplitude={2} distance={0.3} enableMouseInteraction={true} />
           {/* Centered BlurText inside Threads */}
           <div className="absolute inset-0 flex items-center flex-col gap-4 justify-center mb-80">
             <BlurText
