@@ -1,15 +1,18 @@
-import Squares from "../Squares/Squares";
+import Particles from "../Particles/Particles";
 
 export default function Footer() {
   return (
-    <footer className="w-full h-[50%] relative flex items-center justify-center">
-      <Squares
+    <div style={{ width: "100%", height: "700px", position: "relative" }}>
+      <Particles
+        particleColors={["#ffffff", "#ffffff"]}
+        particleCount={600}
+        particleSpread={10}
         speed={0.5}
-        squareSize={40}
-        direction="diagonal" // up, down, left, right, diagonal
-        borderColor="#fff"
-        hoverFillColor="#222"
+        particleBaseSize={200}
+        moveParticlesOnHover={true}
+        alphaParticles={true}
+        disableRotation={true}
       />
-    </footer>
+    </div>
   );
 }

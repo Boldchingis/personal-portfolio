@@ -230,7 +230,7 @@ const Threads: React.FC<ThreadsProps> = ({
   }, [color, amplitude, distance, enableMouseInteraction]);
 
   return (
-    <div ref={containerRef} className="w-full h-full relative" {...rest} />
+    <div ref={containerRef} className="w-full h-full bg-black relative" {...rest} />
   );
 };
 

@@ -5,7 +5,7 @@ import { SlideTabsExample } from "./SlideNav/SlideNav";
 import Footer from "./_components/Footer";
 export default function Home() {
   return (
-    <div>
+    <div className="bg-black">
       <ClickSpark
         sparkColor="#fff"
         sparkSize={10}

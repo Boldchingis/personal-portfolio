@@ -2,13 +2,15 @@
 import { MotionValue, motion, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 
-interface NumberProps {
+function Number({
+  mv,
+  number,
+  height,
+}: {
   mv: MotionValue<number>;
   number: number;
   height: number;
-}
-
-function Number({ mv, number, height }: NumberProps) {
+}) {
   let y = useTransform(mv, (latest) => {
     let placeValue = latest % 10;
     let offset = (10 + number - placeValue) % 10;
@@ -33,14 +35,17 @@ function Number({ mv, number, height }: NumberProps) {
   return <motion.span style={{ ...style, y }}>{number}</motion.span>;
 }
 
-interface DigitProps {
+function Digit({
+  place,
+  value,
+  height,
+  digitStyle,
+}: {
   place: number;
   value: number;
   height: number;
   digitStyle?: React.CSSProperties;
-}
-
-function Digit({ place, value, height, digitStyle }: DigitProps) {
+}) {
   let valueRoundedToPlace = Math.floor(value / place);
   let animatedValue = useSpring(valueRoundedToPlace);
 
@@ -64,26 +69,6 @@ function Digit({ place, value, height, digitStyle }: DigitProps) {
   );
 }
 
-interface CounterUnitProps {
-  value: number;
-  label: string;
-  places: number[];
-  fontSize: number;
-  padding: number;
-  gap: number;
-  borderRadius: number;
-  horizontalPadding: number;
-  textColor: string;
-  fontWeight: React.CSSProperties["fontWeight"];
-  digitStyle?: React.CSSProperties;
-  gradientHeight: number;
-  gradientFrom: string;
-  gradientTo: string;
-  topGradientStyle?: React.CSSProperties;
-  bottomGradientStyle?: React.CSSProperties;
-  labelStyle?: React.CSSProperties;
-}
-
 function CounterUnit({
   value,
   label,
@@ -102,7 +87,25 @@ function CounterUnit({
   topGradientStyle,
   bottomGradientStyle,
   labelStyle,
-}: CounterUnitProps) {
+}: {
+  value: number;
+  label: string;
+  places: number[];
+  fontSize: number;
+  padding: number;
+  gap: number;
+  borderRadius: number;
+  horizontalPadding: number;
+  textColor: string;
+  fontWeight: React.CSSProperties["fontWeight"];
+  digitStyle?: React.CSSProperties;
+  gradientHeight: number;
+  gradientFrom: string;
+  gradientTo: string;
+  topGradientStyle?: React.CSSProperties;
+  bottomGradientStyle?: React.CSSProperties;
+  labelStyle?: React.CSSProperties;
+}) {
   const height = fontSize + padding;
 
   const defaultCounterStyle: React.CSSProperties = {
@@ -184,114 +187,64 @@ function CounterUnit({
   );
 }
 
-interface BirthdayCounterProps {
-  birthDate: string;
-  fontSize?: number;
-  padding?: number;
-  gap?: number;
-  unitGap?: number;
-  borderRadius?: number;
-  horizontalPadding?: number;
-  textColor?: string;
-  fontWeight?: React.CSSProperties["fontWeight"];
-  containerStyle?: React.CSSProperties;
-  digitStyle?: React.CSSProperties;
-  labelStyle?: React.CSSProperties;
-  gradientHeight?: number;
-  gradientFrom?: string;
-  gradientTo?: string;
-  topGradientStyle?: React.CSSProperties;
-  bottomGradientStyle?: React.CSSProperties;
-  updateInterval?: number;
-  showAge?: boolean;
-  showMonths?: boolean;
-  showDays?: boolean;
-  showHours?: boolean;
-  showMinutes?: boolean;
-  showSeconds?: boolean;
-}
-
-interface TimeUntilBirthday {
-  currentAge: number;
-  months: number;
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
-
-function calculateTimeUntilBirthday(birthDate: string): TimeUntilBirthday {
+function calculateCurrentAge(birthDate: string) {
   const now = new Date();
   const birth = new Date(birthDate);
 
-  // Calculate current age
-  let currentAge = now.getFullYear() - birth.getFullYear();
-  const monthDiff = now.getMonth() - birth.getMonth();
+  // Calculate years
+  let years = now.getFullYear() - birth.getFullYear();
+  let months = now.getMonth() - birth.getMonth();
+  let days = now.getDate() - birth.getDate();
+  let hours = now.getHours() - birth.getHours();
+  let minutes = now.getMinutes() - birth.getMinutes();
+  let seconds = now.getSeconds() - birth.getSeconds();
 
-  if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < birth.getDate())) {
-    currentAge--;
+  // Adjust for negative values by borrowing from the next unit
+  if (seconds < 0) {
+    seconds += 60;
+    minutes--;
   }
 
-  // Calculate next birthday
-  const nextBirthday = new Date(birth);
-  nextBirthday.setFullYear(now.getFullYear());
-
-  // If birthday already passed this year, set it to next year
-  if (nextBirthday <= now) {
-    nextBirthday.setFullYear(now.getFullYear() + 1);
+  if (minutes < 0) {
+    minutes += 60;
+    hours--;
   }
 
-  // Calculate time difference in milliseconds
-  const timeDiff = nextBirthday.getTime() - now.getTime();
-
-  if (timeDiff <= 0) {
-    return { currentAge, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+  if (hours < 0) {
+    hours += 24;
+    days--;
   }
 
-  // More accurate calculation using date manipulation
-  let tempDate = new Date(now);
-  let months = 0;
-
-  // Calculate months
-  while (
-    tempDate.getMonth() !== nextBirthday.getMonth() ||
-    tempDate.getFullYear() !== nextBirthday.getFullYear()
-  ) {
-    tempDate.setMonth(tempDate.getMonth() + 1);
-    if (tempDate <= nextBirthday) {
-      months++;
-    } else {
-      tempDate.setMonth(tempDate.getMonth() - 1);
-      break;
-    }
+  if (days < 0) {
+    // Get the last day of the previous month
+    const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    days += lastMonth.getDate();
+    months--;
   }
 
-  // Calculate remaining time after months
-  const remainingTime = nextBirthday.getTime() - tempDate.getTime();
-  const totalSeconds = Math.floor(remainingTime / 1000);
-  const totalMinutes = Math.floor(totalSeconds / 60);
-  const totalHours = Math.floor(totalMinutes / 60);
-  const totalDays = Math.floor(totalHours / 24);
-
-  const days = totalDays;
-  const hours = totalHours % 24;
-  const minutes = totalMinutes % 60;
-  const seconds = totalSeconds % 60;
+  if (months < 0) {
+    months += 12;
+    years--;
+  }
 
   return {
-    currentAge,
-    months,
-    days,
-    hours,
-    minutes,
-    seconds,
+    years: Math.max(0, years),
+    months: Math.max(0, months),
+    days: Math.max(0, days),
+    hours: Math.max(0, hours),
+    minutes: Math.max(0, minutes),
+    seconds: Math.max(0, seconds),
   };
 }
 
 function getPlacesForValue(value: number): number[] {
   if (value < 10) return [1];
   if (value < 100) return [10, 1];
-  return [100, 10, 1];
+  if (value < 1000) return [100, 10, 1];
+  if (value < 10000) return [1000, 100, 10, 1];
+  if (value < 100000) return [10000, 1000, 100, 10, 1];
+  if (value < 1000000) return [100000, 10000, 1000, 100, 10, 1];
+  return [1000000, 100000, 10000, 1000, 100, 10, 1];
 }
 
 export default function BirthdayCounter({
@@ -319,15 +272,38 @@ export default function BirthdayCounter({
   showHours = true,
   showMinutes = true,
   showSeconds = true,
-}: BirthdayCounterProps) {
-  const [timeData, setTimeData] = useState(() =>
-    calculateTimeUntilBirthday(birthDate)
-  );
+}: {
+  birthDate: string;
+  fontSize?: number;
+  padding?: number;
+  gap?: number;
+  unitGap?: number;
+  borderRadius?: number;
+  horizontalPadding?: number;
+  textColor?: string;
+  fontWeight?: React.CSSProperties["fontWeight"];
+  containerStyle?: React.CSSProperties;
+  digitStyle?: React.CSSProperties;
+  labelStyle?: React.CSSProperties;
+  gradientHeight?: number;
+  gradientFrom?: string;
+  gradientTo?: string;
+  topGradientStyle?: React.CSSProperties;
+  bottomGradientStyle?: React.CSSProperties;
+  updateInterval?: number;
+  showAge?: boolean;
+  showMonths?: boolean;
+  showDays?: boolean;
+  showHours?: boolean;
+  showMinutes?: boolean;
+  showSeconds?: boolean;
+}) {
+  const [ageData, setAgeData] = useState(() => calculateCurrentAge(birthDate));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newTimeData = calculateTimeUntilBirthday(birthDate);
-      setTimeData(newTimeData);
+      const newAgeData = calculateCurrentAge(birthDate);
+      setAgeData(newAgeData);
     }, updateInterval);
 
     return () => clearInterval(interval);
@@ -342,31 +318,29 @@ export default function BirthdayCounter({
   };
 
   const units = [
-    { show: showAge, value: timeData.currentAge, label: "AGE", key: "age" },
-    {
-      show: showMonths,
-      value: timeData.months,
-      label: "MONTHS",
-      key: "months",
-    },
-    { show: showDays, value: timeData.days, label: "DAYS", key: "days" },
-    { show: showHours, value: timeData.hours, label: "HOURS", key: "hours" },
+    { show: showAge, value: ageData.years, label: "YEARS", key: "years" },
+    { show: showMonths, value: ageData.months, label: "MONTHS", key: "months" },
+    { show: showDays, value: ageData.days, label: "DAYS", key: "days" },
+    { show: showHours, value: ageData.hours, label: "HOURS", key: "hours" },
     {
       show: showMinutes,
-      value: timeData.minutes,
+      value: ageData.minutes,
       label: "MINUTES",
       key: "minutes",
     },
     {
       show: showSeconds,
-      value: timeData.seconds,
+      value: ageData.seconds,
       label: "SECONDS",
       key: "seconds",
     },
   ].filter((unit) => unit.show);
 
   return (
-    <div className="font-mono" style={{ ...defaultContainerStyle, ...containerStyle }}>
+    <div
+      className="font-mono"
+      style={{ ...defaultContainerStyle, ...containerStyle }}
+    >
       {units.map((unit) => (
         <CounterUnit
           key={unit.key}
