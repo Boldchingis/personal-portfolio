@@ -119,6 +119,7 @@ function CounterUnit({
     lineHeight: 1,
     color: textColor,
     fontWeight: fontWeight,
+    backgroundColor: "#08100c", // Set the background color here instead
   };
 
   const gradientContainerStyle: React.CSSProperties = {
@@ -152,9 +153,7 @@ function CounterUnit({
   };
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
+    <div className="flex flex-col items-center">
       <div style={{ position: "relative", display: "inline-block" }}>
         <div style={defaultCounterStyle}>
           {places.map((place) => (
@@ -168,18 +167,8 @@ function CounterUnit({
           ))}
         </div>
         <div style={gradientContainerStyle}>
-          <div
-            style={
-              topGradientStyle ? topGradientStyle : defaultTopGradientStyle
-            }
-          />
-          <div
-            style={
-              bottomGradientStyle
-                ? bottomGradientStyle
-                : defaultBottomGradientStyle
-            }
-          />
+          <div style={topGradientStyle ?? defaultTopGradientStyle} />
+          <div style={bottomGradientStyle ?? defaultBottomGradientStyle} />
         </div>
       </div>
       <div style={{ ...defaultLabelStyle, ...labelStyle }}>{label}</div>
@@ -261,7 +250,7 @@ export default function BirthdayCounter({
   digitStyle,
   labelStyle,
   gradientHeight = 12,
-  gradientFrom = "black",
+  gradientFrom = "#08100c",
   gradientTo = "transparent",
   topGradientStyle,
   bottomGradientStyle,

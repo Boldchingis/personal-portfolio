@@ -15,7 +15,6 @@ export default function Hero() {
       <div className="flex flex-col items-center justify-center h-screen">
         <div style={{ width: "100%", height: "600px", position: "relative" }}>
           <Threads amplitude={2} distance={0.3} enableMouseInteraction={true} />
-          {/* Centered BlurText inside Threads */}
           <div className="absolute inset-0 flex items-center flex-col gap-4 justify-center mb-80">
             <BlurText
               text="Hi I'm Boldchingis"
@@ -27,11 +26,11 @@ export default function Hero() {
             />
             <TrueFocus
               sentence="Developer, Creative, Innovator"
-              manualMode={true}
+              manualMode={false}
               blurAmount={5}
               borderColor="white"
               animationDuration={0.8}
-              pauseBetweenAnimations={1}
+              pauseBetweenAnimations={0.8}
             />
           </div>
         </div>
