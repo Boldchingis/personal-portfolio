@@ -8,6 +8,91 @@ const handleAnimationComplete = () => {
   console.log("Animation completed!");
 };
 
+const techSkills = [
+  // Operating Systems & Platforms
+  { name: "Arch Linux", logo: "arch-linux", color: "1793D1" },
+  { name: "Linux", logo: "linux", color: "FCC624" },
+  { name: "Windows Terminal", logo: "windows-terminal", color: "4D4D4D" },
+  { name: "XFCE", logo: "xfce", color: "2284F2" },
+  
+  // Programming Languages
+  { name: "C", logo: "c", color: "A8B9CC" },
+  { name: "JavaScript", logo: "javascript", color: "F7DF1E" },
+  { name: "TypeScript", logo: "typescript", color: "3178C6" },
+  { name: "HTML5", logo: "html5", color: "E34F26" },
+  { name: "CSS3", logo: "css3", color: "1572B6" },
+  { name: "Lua", logo: "lua", color: "2C2D72" },
+  { name: "PowerShell", logo: "powershell", color: "5391FE" },
+  { name: "Bash", logo: "gnu-bash", color: "4EAA25" },
+  
+  // Frontend Frameworks & Libraries
+  { name: "React", logo: "react", color: "61DAFB" },
+  { name: "Next.js", logo: "next.js", color: "000000" },
+  { name: "TailwindCSS", logo: "tailwind-css", color: "06B6D4" },
+  { name: "MUI", logo: "mui", color: "007FFF" },
+  { name: "Ant Design", logo: "ant-design", color: "0170FE" },
+  { name: "Radix UI", logo: "radix-ui", color: "161618" },
+  { name: "GSAP", logo: "greensock", color: "88CE02" },
+  
+  // Backend & APIs
+  { name: "Node.js", logo: "node.js", color: "339933" },
+  { name: "Express.js", logo: "express", color: "000000" },
+  { name: "GraphQL", logo: "graphql", color: "E10098" },
+  { name: "Apollo GraphQL", logo: "apollo-graphql", color: "311C87" },
+  { name: "JWT", logo: "json-web-tokens", color: "000000" },
+  
+  // Databases
+  { name: "MongoDB", logo: "mongodb", color: "47A248" },
+  { name: "MySQL", logo: "mysql", color: "4479A1" },
+  { name: "Redis", logo: "redis", color: "DC382D" },
+  { name: "Prisma", logo: "prisma", color: "2D3748" },
+  
+  // Package Managers & Tools
+  { name: "NPM", logo: "npm", color: "CB3837" },
+  { name: "Yarn", logo: "yarn", color: "2C8EBB" },
+  { name: "PNPM", logo: "pnpm", color: "F69220" },
+  { name: "Bun", logo: "bun", color: "000000" },
+  { name: "Nx", logo: "nx", color: "143055" },
+  { name: "Nodemon", logo: "nodemon", color: "76D04B" },
+  
+  // Cloud & Deployment
+  { name: "Firebase", logo: "firebase", color: "FFCA28" },
+  { name: "Vercel", logo: "vercel", color: "000000" },
+  
+  // Development Tools
+  { name: "Git", logo: "git", color: "F05032" },
+  { name: "GitHub", logo: "github", color: "181717" },
+  { name: "Vim", logo: "vim", color: "019733" },
+  { name: "Figma", logo: "figma", color: "F24E1E" },
+  { name: "Notion", logo: "notion", color: "000000" },
+  { name: "Postman", logo: "postman", color: "FF6C37" },
+];
+
+type Skill = {
+  name: string;
+  logo: string;
+  color: string;
+};
+
+const GlassBadge = ({ skill }: { skill: Skill }) => {
+  return (
+    <div className="group relative">
+      <div className="relative px-6 py-3 rounded-xl backdrop-blur-md bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 shadow-lg hover:shadow-xl">
+        {/* Glass shine effect */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        
+        {/* Text Only */}
+        <span className="text-[16px] font-bold text-white uppercase tracking-wide relative z-10 whitespace-nowrap" style={{ fontFamily: 'monospace' }}>
+          {skill.name}
+        </span>
+        
+        {/* Subtle inner glow */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
+      </div>
+    </div>
+  );
+};
+
 export default function Main() {
   return (
     <div className="min-h-[200vh] bg-[#08100c] text-white px-4">
@@ -23,18 +108,16 @@ export default function Main() {
               className="rounded-md transition-opacity duration-300 ease-out"
             />
           </div>
-
           <BirthdayCounter
             birthDate="2006-07-20"
             fontSize={60}
             showAge={true}
-            showMonths={false}
+            showMonths={true}
             showDays={true}
             showHours={true}
             textColor="#ffffff"
             fontWeight={800}
           />
-
           <BlurText
             text="Fun fact: This is the time I'm currently living. 😂"
             delay={50}
@@ -43,7 +126,6 @@ export default function Main() {
             onAnimationComplete={handleAnimationComplete}
             className="font-mono flex justify-center font-semibold opacity-60 text-xl"
           />
-
           <BlurText
             text="I'm a full-stack developer with a strong focus on front-end development. I care about creating smooth, user-friendly interfaces that are easy to use. I like using design systems to keep projects consistent and easy to maintain. I enjoy working with modern front-end frameworks that help me build features quickly."
             delay={20}
@@ -52,6 +134,20 @@ export default function Main() {
             onAnimationComplete={handleAnimationComplete}
             className="font-mono font-semibold flex justify-center text-3xl leading-relaxed"
           />
+        </div>
+      </div>
+      
+      {/* Tech Skills Section */}
+      <div className="max-w-5xl mx-auto mt-40 pb-20">
+        <h1 className="font-extrabold font-mono text-center mb-12 text-4xl">
+          TECH SKILLS
+        </h1>
+        
+        {/* Glass Skills Badges */}
+        <div className="flex flex-wrap justify-center gap-3">
+          {techSkills.map((skill, index) => (
+            <GlassBadge key={skill.name} skill={skill} />
+          ))}
         </div>
       </div>
     </div>

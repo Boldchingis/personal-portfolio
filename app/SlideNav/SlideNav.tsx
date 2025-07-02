@@ -37,8 +37,8 @@ const SlideTabs: React.FC = () => {
     >
       <Tab setPosition={setPosition}>Home</Tab>
       <Tab setPosition={setPosition}>About me</Tab>
-      <Tab setPosition={setPosition}>Projects</Tab>
       <Tab setPosition={setPosition}>Tech skills</Tab>
+      <Tab setPosition={setPosition}>Projects</Tab>
       <Tab setPosition={setPosition}>Contact</Tab>
       <Cursor position={position} />
     </ul>

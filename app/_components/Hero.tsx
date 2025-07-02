@@ -26,7 +26,7 @@ export default function Hero() {
             />
             <TrueFocus
               sentence="Developer, Creative, Innovator"
-              manualMode={false}
+              manualMode={true}
               blurAmount={5}
               borderColor="white"
               animationDuration={0.8}
