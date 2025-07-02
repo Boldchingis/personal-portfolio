@@ -33,6 +33,8 @@ const techSkills = [
   { name: "Ant Design", logo: "ant-design", color: "0170FE" },
   { name: "Radix UI", logo: "radix-ui", color: "161618" },
   { name: "GSAP", logo: "greensock", color: "88CE02" },
+  { name: "Framer Motion", logo: "framer-motion", color: "0081CB" },
+  { name: "Shadcn UI", logo: "shadcn-ui", color: "000000" },
   
   // Backend & APIs
   { name: "Node.js", logo: "node.js", color: "339933" },
@@ -62,7 +64,7 @@ const techSkills = [
   // Development Tools
   { name: "Git", logo: "git", color: "F05032" },
   { name: "GitHub", logo: "github", color: "181717" },
-  { name: "Vim", logo: "vim", color: "019733" },
+  { name: "Monorepo", logo: "vim", color: "019733" },
   { name: "Figma", logo: "figma", color: "F24E1E" },
   { name: "Notion", logo: "notion", color: "000000" },
   { name: "Postman", logo: "postman", color: "FF6C37" },
