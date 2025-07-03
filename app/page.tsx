@@ -16,7 +16,7 @@ export default function Home() {
         sparkCount={11}
         duration={400}
       >
-        <div className="fixed bottom-12 right-12 z-30">
+        <div className="fixed bottom-4 right-4 md:bottom-12 md:right-12 z-30">
           <FadeContent
             blur={true}
             duration={1500}
@@ -27,10 +27,10 @@ export default function Home() {
               href="https://github.com/Boldchingis"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex gap-4 items-center justify-center w-36 h-18 bg-[#08100c] backdrop-blur-sm border border-white rounded-4xl hover:bg-black hover:scale-95 transition-all duration-300 group"
+              className="flex gap-2 md:gap-4 items-center justify-center w-28 md:w-36 h-14 md:h-18 bg-[#08100c] backdrop-blur-sm border border-white rounded-3xl md:rounded-4xl hover:bg-black hover:scale-95 transition-all duration-300 group"
             >
               <svg
-                className="w-10 h-10 text-white group-hover:text-white transition-colors duration-300"
+                className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:text-white transition-colors duration-300"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"

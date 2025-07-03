@@ -1,8 +1,11 @@
-import Particles from "../Particles/Particles";
+"use client";
+
+import dynamic from "next/dynamic";
+const Particles = dynamic(() => import("../Particles/Particles"), { ssr: false });
 
 export default function Footer() {
   return (
-    <div style={{ width: "100%", height: "700px" }} className=" z-40">
+    <div className="w-full h-[300px] md:h-[700px] z-40">
       <Particles
         particleColors={["#ffffff", "#ffffff"]}
         particleCount={600}
