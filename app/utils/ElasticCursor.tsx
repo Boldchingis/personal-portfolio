@@ -217,28 +217,26 @@ function ElasticCursor() {
         ref={jellyRef}
         className={cn(
           `w-[${CURSOR_DIAMETER}px] h-[${CURSOR_DIAMETER}px]`,
-          "border-2 border-black dark:border-white",
+          "border-2 border-black bg-transparent",
           "fixed left-0 top-0 rounded-lg z-[999]",
           "pointer-events-none will-change-transform",
           "translate-x-[-50%] translate-y-[-50%]"
         )}
         style={{
           zIndex: 100,
-          backdropFilter: "invert(100%)",
         }}
       />
       
       {/* Small dot cursor */}
       <div
         className={cn(
-          "w-2 h-2 rounded-full fixed bg-white",
+          "w-2 h-2 rounded-full fixed bg-black",
           "translate-x-[-50%] translate-y-[-50%]",
           "pointer-events-none transition-none duration-300"
         )}
         style={{
           top: y,
           left: x,
-          backdropFilter: "invert(100%)",
         }}
       />
     </>

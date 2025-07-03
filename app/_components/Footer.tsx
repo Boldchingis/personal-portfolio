@@ -5,9 +5,9 @@ const Particles = dynamic(() => import("../Particles/Particles"), { ssr: false }
 
 export default function Footer() {
   return (
-    <div className="w-full h-[300px] md:h-[700px] z-40">
+    <div className="w-full h-[300px] md:h-[700px] z-40 bg-[#f3f3f3]">
       <Particles
-        particleColors={["#ffffff", "#ffffff"]}
+        particleColors={["#000000", "#000000"]}
         particleCount={600}
         particleSpread={10}
         speed={0.5}

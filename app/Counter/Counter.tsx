@@ -119,7 +119,7 @@ function CounterUnit({
     lineHeight: 1,
     color: textColor,
     fontWeight: fontWeight,
-    backgroundColor: "#08100c", // Set the background color here instead
+    backgroundColor: "#f3f3f3", // Set the background color here instead
   };
 
   const gradientContainerStyle: React.CSSProperties = {
@@ -133,7 +133,7 @@ function CounterUnit({
 
   const defaultTopGradientStyle: React.CSSProperties = {
     height: gradientHeight,
-    background: `linear-gradient(to bottom, ${gradientFrom}, ${gradientTo})`,
+    background: `linear-gradient(to bottom, #f3f3f3, transparent)`,
   };
 
   const defaultBottomGradientStyle: React.CSSProperties = {
@@ -141,7 +141,7 @@ function CounterUnit({
     bottom: 0,
     width: "100%",
     height: gradientHeight,
-    background: `linear-gradient(to top, ${gradientFrom}, ${gradientTo})`,
+    background: `linear-gradient(to top, #f3f3f3, transparent)`,
   };
 
   const defaultLabelStyle: React.CSSProperties = {
@@ -244,13 +244,13 @@ export default function BirthdayCounter({
   unitGap = 20,
   borderRadius = 8,
   horizontalPadding = 12,
-  textColor = "white",
+  textColor = "#000000",
   fontWeight = "bold",
   containerStyle,
   digitStyle,
   labelStyle,
   gradientHeight = 12,
-  gradientFrom = "#08100c",
+  gradientFrom = "#f3f3f3",
   gradientTo = "transparent",
   topGradientStyle,
   bottomGradientStyle,

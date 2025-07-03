@@ -17,10 +17,10 @@ const ShinyText: React.FC<ShinyTextProps> = ({
 
   return (
     <div
-      className={`text-[#b5b5b5a4] bg-clip-text inline-block ${disabled ? "" : "animate-shine"} ${className}`}
+      className={`text-black bg-clip-text inline-block ${disabled ? "" : "animate-shine"} ${className}`}
       style={{
         backgroundImage:
-          "linear-gradient(120deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 60%)",
+          "linear-gradient(120deg, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0.1) 60%)",
         backgroundSize: "200% 100%",
         WebkitBackgroundClip: "text",
         animationDuration: animationDuration,

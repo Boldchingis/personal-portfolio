@@ -16,10 +16,10 @@ export const SlideTabsExample: React.FC = () => {
       {/* Desktop Navigation */}
       <div className="hidden sm:block sticky top-0 z-30 w-full md:fixed md:top-4 md:left-1/2 md:transform md:-translate-x-1/2">
         <div className="relative">
-          {/* Gradient fade left */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-6 bg-gradient-to-r from-[#08100c] to-transparent z-20" />
-          {/* Gradient fade right */}
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-6 bg-gradient-to-l from-[#08100c] to-transparent z-20" />
+          {/* Gradient fade left - matches main background */}
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-6 bg-gradient-to-r from-[#f3f3f3] to-transparent z-20" />
+          {/* Gradient fade right - matches main background */}
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-6 bg-gradient-to-l from-[#f3f3f3] to-transparent z-20" />
           <SlideTabs />
         </div>
       </div>
@@ -28,9 +28,9 @@ export const SlideTabsExample: React.FC = () => {
       <div className="sm:hidden fixed top-4 right-4 z-50">
         <button
           onClick={() => setIsSheetOpen(true)}
-          className="p-3 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl shadow-black/25"
+          className="p-3 rounded-full backdrop-blur-xl bg-[#f3f3f3]/80 border border-black/20 shadow-2xl shadow-black/25"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-black">
             <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
           </svg>
         </button>
@@ -49,21 +49,21 @@ export const SlideTabsExample: React.FC = () => {
               className="sm:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
             />
             
-            {/* Sheet */}
+            {/* Sheet - more accurate background */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="sm:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-[#08100c]/95 backdrop-blur-xl border-l border-white/20 z-50"
+              className="sm:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-[#f3f3f3]/98 backdrop-blur-xl border-l border-black/20 z-50"
             >
               <div className="p-6">
                 {/* Close Button */}
                 <button
                   onClick={() => setIsSheetOpen(false)}
-                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 transition-colors"
+                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/10 transition-colors"
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-black">
                     <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                   </svg>
                 </button>
@@ -110,7 +110,7 @@ const SlideTabs: React.FC = () => {
           opacity: 0,
         }));
       }}
-      className="relative mx-auto flex w-full max-w-full overflow-x-auto whitespace-nowrap rounded-full border border-white/20 p-1 md:w-fit md:max-w-none backdrop-blur-xl bg-white/10 shadow-2xl shadow-black/25 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent scroll-smooth"
+      className="relative mx-auto flex w-full max-w-full overflow-x-auto whitespace-nowrap rounded-full border border-black/20 p-1 md:w-fit md:max-w-none backdrop-blur-xl bg-[#f3f3f3]/80 shadow-2xl shadow-black/25 scrollbar-thin scrollbar-thumb-black/20 scrollbar-track-transparent scroll-smooth"
       style={{ WebkitOverflowScrolling: 'touch' }}
     >
       <Tab setPosition={setPosition}>Home</Tab>
@@ -143,7 +143,7 @@ const Tab: React.FC<TabProps> = ({ children, setPosition }) => {
           opacity: 1,
         });
       }}
-      className="relative font-mono font-semibold z-10 block cursor-pointer px-4 py-3 md:px-6 md:py-4 text-sm md:text-base uppercase text-white/90 hover:text-white transition-colors duration-200 flex-shrink-0"
+      className="relative font-mono font-semibold z-10 block cursor-pointer px-4 py-3 md:px-6 md:py-4 text-sm md:text-base uppercase text-black/90 hover:text-black transition-colors duration-200 flex-shrink-0"
     >
       {children}
     </li>
@@ -159,7 +159,7 @@ const Cursor: React.FC<CursorProps> = ({ position }) => {
     <motion.li
       animate={{ ...position }}
       transition={{ type: "spring", stiffness: 500, damping: 30 }}
-      className="absolute z-0 top-1 bottom-1 rounded-full bg-white/20 backdrop-blur-sm shadow-lg"
+      className="absolute z-0 top-1 bottom-1 rounded-full bg-black/20 backdrop-blur-sm shadow-lg"
     />
   );
 };
@@ -173,8 +173,8 @@ const MobileNavItem: React.FC<MobileNavItemProps> = ({ children, onClick }) => {
   return (
     <motion.button
       onClick={onClick}
-      whileHover={{ x: 3, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
-      className="w-full text-left p-4 rounded-xl font-mono font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors duration-200 uppercase tracking-wide"
+      whileHover={{ x: 3, backgroundColor: "rgba(243, 243, 243, 0.2)" }}
+      className="w-full text-left p-4 rounded-xl font-mono font-semibold text-black/90 hover:text-black hover:bg-[#f3f3f3]/20 transition-colors duration-200 uppercase tracking-wide"
     >
       {children}
     </motion.button>

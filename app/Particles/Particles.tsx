@@ -17,7 +17,7 @@ interface ParticlesProps {
   className?: string;
 }
 
-const defaultColors: string[] = ["#ffffff", "#ffffff", "#ffffff"];
+const defaultColors: string[] = ["#000000", "#000000", "#000000"];
 
 const hexToRgb = (hex: string): [number, number, number] => {
   hex = hex.replace(/^#/, "");
@@ -246,7 +246,7 @@ const Particles: React.FC<ParticlesProps> = ({
   ]);
 
   return (
-    <div ref={containerRef} className={` bg-[#08100c] w-full h-full ${className}`} />
+    <div ref={containerRef} className={` bg-[#f3f3f3] w-full h-full ${className}`} />
   );
 };
 

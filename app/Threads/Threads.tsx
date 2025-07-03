@@ -128,7 +128,7 @@ void main() {
 `;
 
 const Threads: React.FC<ThreadsProps> = ({
-  color = [1, 1, 1],
+  color = [0, 0, 0],
   amplitude = 1,
   distance = 0,
   enableMouseInteraction = false,
@@ -230,7 +230,7 @@ const Threads: React.FC<ThreadsProps> = ({
   }, [color, amplitude, distance, enableMouseInteraction]);
 
   return (
-    <div ref={containerRef} className="w-full h-full bg-[#08100c] relative" {...rest} />
+    <div ref={containerRef} className="w-full h-full bg-[#f3f3f3] relative" {...rest} />
   );
 };
 
