@@ -81,7 +81,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
 
   return (
     <div
-      className="relative flex font-mono gap-4 justify-center items-center flex-wrap text-black bg-transparent"
+      className="relative flex gap-4 justify-center items-center flex-wrap text-black bg-transparent"
       ref={containerRef}
     >
       {words.map((word, index) => {
@@ -92,7 +92,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
             ref={(el) => {
               wordRefs.current[index] = el;
             }}
-            className="relative text-[3rem] font-black cursor-pointer text-black"
+            className="relative text-4xl font-semibold cursor-pointer text-black "
             style={{
               filter: isActive ? "blur(0px)" : `blur(${blurAmount}px)`,
               transition: `filter ${animationDuration}s ease`,
@@ -133,7 +133,6 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
             className={`absolute w-4 h-4 border-[3px] rounded-[3px] ${pos}`}
             style={{
               borderColor: "#000000",
-              filter: "drop-shadow(0 0 4px #000000)",
             }}
           />
         ))}

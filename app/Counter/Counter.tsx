@@ -47,7 +47,11 @@ function Digit({
   digitStyle?: React.CSSProperties;
 }) {
   let valueRoundedToPlace = Math.floor(value / place);
-  let animatedValue = useSpring(valueRoundedToPlace);
+  let animatedValue = useSpring(valueRoundedToPlace, {
+    stiffness: 100,
+    damping: 30,
+    mass: 1,
+  });
 
   useEffect(() => {
     animatedValue.set(valueRoundedToPlace);
@@ -58,6 +62,7 @@ function Digit({
     position: "relative",
     width: "1ch",
     fontVariantNumeric: "tabular-nums",
+    overflow: "hidden",
   };
 
   return (
@@ -81,11 +86,6 @@ function CounterUnit({
   textColor,
   fontWeight,
   digitStyle,
-  gradientHeight,
-  gradientFrom,
-  gradientTo,
-  topGradientStyle,
-  bottomGradientStyle,
   labelStyle,
 }: {
   value: number;
@@ -99,11 +99,6 @@ function CounterUnit({
   textColor: string;
   fontWeight: React.CSSProperties["fontWeight"];
   digitStyle?: React.CSSProperties;
-  gradientHeight: number;
-  gradientFrom: string;
-  gradientTo: string;
-  topGradientStyle?: React.CSSProperties;
-  bottomGradientStyle?: React.CSSProperties;
   labelStyle?: React.CSSProperties;
 }) {
   const height = fontSize + padding;
@@ -119,29 +114,7 @@ function CounterUnit({
     lineHeight: 1,
     color: textColor,
     fontWeight: fontWeight,
-    backgroundColor: "#f3f3f3", // Set the background color here instead
-  };
-
-  const gradientContainerStyle: React.CSSProperties = {
-    pointerEvents: "none",
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-  };
-
-  const defaultTopGradientStyle: React.CSSProperties = {
-    height: gradientHeight,
-    background: `linear-gradient(to bottom, #f3f3f3, transparent)`,
-  };
-
-  const defaultBottomGradientStyle: React.CSSProperties = {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    height: gradientHeight,
-    background: `linear-gradient(to top, #f3f3f3, transparent)`,
+    backgroundColor: "#f3f3f3",
   };
 
   const defaultLabelStyle: React.CSSProperties = {
@@ -165,10 +138,6 @@ function CounterUnit({
               digitStyle={digitStyle}
             />
           ))}
-        </div>
-        <div style={gradientContainerStyle}>
-          <div style={topGradientStyle ?? defaultTopGradientStyle} />
-          <div style={bottomGradientStyle ?? defaultBottomGradientStyle} />
         </div>
       </div>
       <div style={{ ...defaultLabelStyle, ...labelStyle }}>{label}</div>
@@ -249,12 +218,7 @@ export default function BirthdayCounter({
   containerStyle,
   digitStyle,
   labelStyle,
-  gradientHeight = 12,
-  gradientFrom = "#f3f3f3",
-  gradientTo = "transparent",
-  topGradientStyle,
-  bottomGradientStyle,
-  updateInterval = 1000,
+  updateInterval = 100,
   showAge = true,
   showMonths = true,
   showDays = true,
@@ -274,11 +238,6 @@ export default function BirthdayCounter({
   containerStyle?: React.CSSProperties;
   digitStyle?: React.CSSProperties;
   labelStyle?: React.CSSProperties;
-  gradientHeight?: number;
-  gradientFrom?: string;
-  gradientTo?: string;
-  topGradientStyle?: React.CSSProperties;
-  bottomGradientStyle?: React.CSSProperties;
   updateInterval?: number;
   showAge?: boolean;
   showMonths?: boolean;
@@ -326,10 +285,7 @@ export default function BirthdayCounter({
   ].filter((unit) => unit.show);
 
   return (
-    <div
-      className="font-mono"
-      style={{ ...defaultContainerStyle, ...containerStyle }}
-    >
+    <div style={{ ...defaultContainerStyle, ...containerStyle }}>
       {units.map((unit) => (
         <CounterUnit
           key={unit.key}
@@ -345,11 +301,6 @@ export default function BirthdayCounter({
           fontWeight={fontWeight}
           digitStyle={digitStyle}
           labelStyle={labelStyle}
-          gradientHeight={gradientHeight}
-          gradientFrom={gradientFrom}
-          gradientTo={gradientTo}
-          topGradientStyle={topGradientStyle}
-          bottomGradientStyle={bottomGradientStyle}
         />
       ))}
     </div>
