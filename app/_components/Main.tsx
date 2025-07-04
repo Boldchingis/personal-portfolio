@@ -2,15 +2,13 @@
 import dynamic from "next/dynamic";
 import BirthdayCounter from "../Counter/Counter";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { AnimatedText } from "@/components/ui/animated-underline-text-one";
-import  SkillsCloud  from "./TechSkill";
+import { useRef } from "react";
 
 const handleAnimationComplete = () => {
   console.log("Animation completed!");
 };
-
-
 
 type Skill = {
   name: string;
@@ -18,13 +16,22 @@ type Skill = {
   color: string;
 };
 
-
+const SkillsCloud = dynamic(() => import("./TechSkill"), {
+  ssr: false,
+});
 const BlurText = dynamic(() => import("../BlurText/BlurText"), { ssr: false });
 const ElasticCursor = dynamic(() => import("../utils/ElasticCursor"), {
   ssr: false,
 });
 
 export default function Main() {
+  const skillRef = useRef(null);
+  const isInView = useInView(skillRef, { once: true });
+
+  const handleAnimationComplete = () => {
+    console.log("Animation completed!");
+  };
+
   return (
     <div className="min-h-[200vh] bg-[#f3f3f3] text-black px-4">
       <div className="flex items-center justify-center min-h-screen">
@@ -55,7 +62,7 @@ export default function Main() {
             animateBy="words"
             direction="bottom"
             onAnimationComplete={handleAnimationComplete}
-            className=" flex justify-center font-semibold opacity-60 text-sm md:text-xl text-black"
+            className="flex justify-center font-semibold opacity-60 text-sm md:text-xl text-black"
           />
           <BlurText
             text="I'm a full-stack developer with a strong focus on front-end development. I care about creating smooth, user-friendly interfaces that are easy to use. I like using design systems to keep projects consistent and easy to maintain. I enjoy working with modern front-end frameworks that help me build features quickly."
@@ -63,17 +70,24 @@ export default function Main() {
             animateBy="words"
             direction="bottom"
             onAnimationComplete={handleAnimationComplete}
-            className=" font-semibold flex justify-center text-lg md:text-2xl lg:text-3xl leading-relaxed"
+            className="font-semibold flex justify-center text-lg md:text-2xl lg:text-3xl leading-relaxed"
           />
         </div>
       </div>
-      <div className="max-w-5xl mx-auto mt-20 md:mt-40 pb-10 md:pb-20">
-        <AnimatedText
-          className="font-extrabold  text-center mb-6 md:mb-12 text-2xl md:text-4xl text-black"
-          text="TECH SKILLS"
-        />
-     <SkillsCloud/>
+
+      <div
+        ref={skillRef}
+        className="max-w-5xl mx-auto mt-20 md:mt-40 pb-10 md:pb-20"
+      >
+        {isInView && (
+          <AnimatedText
+            className="font-extrabold text-center mb-6 md:mb-12 text-2xl md:text-4xl text-black"
+            text="TECH SKILLS"
+          />
+        )}
+        <SkillsCloud />
       </div>
     </div>
   );
 }
+

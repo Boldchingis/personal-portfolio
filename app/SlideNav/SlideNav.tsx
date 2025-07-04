@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CursorPosition {
@@ -10,6 +10,18 @@ interface CursorPosition {
 
 export const SlideTabsExample: React.FC = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  // Prevent scroll when mobile sheet is open
+  useEffect(() => {
+    if (isSheetOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isSheetOpen]);
 
   return (
     <>
@@ -30,8 +42,19 @@ export const SlideTabsExample: React.FC = () => {
           onClick={() => setIsSheetOpen(true)}
           className="p-3 rounded-full backdrop-blur-xl bg-white/90 border border-black hover:bg-white/95 transition-all duration-200"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-700">
-            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="text-gray-700"
+          >
+            <path
+              d="M3 12h18M3 6h18M3 18h18"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       </div>
@@ -48,14 +71,14 @@ export const SlideTabsExample: React.FC = () => {
               onClick={() => setIsSheetOpen(false)}
               className="sm:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
             />
-            
+
             {/* Sheet */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="sm:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white/95 backdrop-blur-xl border-l border-black z-50"
+              className="sm:hidden fixed top-0 right-2 h-[95vh] mt-2 rounded-xl w-[85vw] max-w-[20rem] bg-white/95 backdrop-blur-xl border border-gray-300 z-50 overflow-y-auto shadow-xl"
             >
               <div className="p-6">
                 {/* Close Button */}
@@ -63,8 +86,19 @@ export const SlideTabsExample: React.FC = () => {
                   onClick={() => setIsSheetOpen(false)}
                   className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-600">
-                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="text-gray-600"
+                  >
+                    <path
+                      d="M18 6L6 18M6 6l12 12"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
                   </svg>
                 </button>
 
@@ -111,7 +145,7 @@ const SlideTabs: React.FC = () => {
         }));
       }}
       className="relative mx-auto flex w-full max-w-full overflow-x-auto whitespace-nowrap rounded-full border border-gray-200 p-1 md:w-fit md:max-w-none backdrop-blur-xl bg-white/90 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth"
-      style={{ WebkitOverflowScrolling: 'touch' }}
+      style={{ WebkitOverflowScrolling: "touch" }}
     >
       <Tab setPosition={setPosition}>Home</Tab>
       <Tab setPosition={setPosition}>About me</Tab>
@@ -174,7 +208,7 @@ const MobileNavItem: React.FC<MobileNavItemProps> = ({ children, onClick }) => {
     <motion.button
       onClick={onClick}
       whileHover={{ x: 3, backgroundColor: "rgba(243, 243, 243, 0.5)" }}
-      className="w-full text-left p-4 rounded-xl font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-200 uppercase tracking-wide"
+      className="w-full text-left p-3 rounded-lg font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition duration-200 uppercase text-sm tracking-wide"
     >
       {children}
     </motion.button>
