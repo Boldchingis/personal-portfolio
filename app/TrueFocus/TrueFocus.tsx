@@ -81,7 +81,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
 
   return (
     <div
-      className="relative flex gap-4 justify-center items-center flex-wrap text-black bg-transparent"
+      className="relative flex flex-col sm:flex-row justify-center items-center flex-wrap gap-y-2 gap-x-4 text-black bg-transparent px-4 py-6 w-full max-w-screen-md mx-auto"
       ref={containerRef}
     >
       {words.map((word, index) => {
@@ -117,10 +117,12 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
         transition={{
           duration: animationDuration,
         }}
-        style={{
-          "--border-color": "#000000",
-          "--glow-color": "#000000",
-        } as React.CSSProperties}
+        style={
+          {
+            "--border-color": "#000000",
+            "--glow-color": "#000000",
+          } as React.CSSProperties
+        }
       >
         {[
           "top-[-10px] left-[-10px] border-r-0 border-b-0",
