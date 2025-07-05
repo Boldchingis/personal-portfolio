@@ -42,7 +42,6 @@ export default function Main() {
           />
 
           <ElasticCursor />
-
           <BlurText
             text="Fun fact: This is the time I'm currently living."
             delay={20}

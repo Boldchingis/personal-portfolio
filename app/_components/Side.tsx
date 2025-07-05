@@ -15,14 +15,24 @@ export default function TechSkillsSection() {
   return (
     <div
       ref={skillRef}
-      className="max-w-5xl h-[130vh] flex justify-center flex-col  mx-auto mt-20 items-center md:mt-40 pb-10 md:pb-20"
+      className="max-w-5xl min-h-screen flex justify-center flex-col mx-auto mt-20 items-center md:mt-40 py-10 md:py-20"
     >
       {isInView && (
-        <AnimatedText
-          className="font-extrabold text-center mb-6 md:mb-12 text-2xl md:text-4xl text-black"
-          text="TECH SKILLS"
-        />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="text-center mb-32"
+        >
+          <div className="inline-block">
+            <h2 className="text-5xl md:text-7xl font-black text-black mb-6 tracking-tighter">
+              TECH SKILLS
+            </h2>
+            <div className="w-full h-1 bg-black transform rotate-1"></div>
+          </div>
+        </motion.div>
       )}
+
       <SkillsCloud />
     </div>
   );

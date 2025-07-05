@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useInView } from "framer-motion";
+import { useInView, motion } from "framer-motion";
 import { AnimatedText } from "@/components/ui/animated-underline-text-one";
 import { FocusCards } from "@/components/ui/focus-card";
 
@@ -43,14 +43,24 @@ export default function Section() {
   return (
     <div
       ref={sectionRef}
-      className="w-full h-[130vh]  md:min-h-screen bg-[#f3f3f3] text-black flex flex-col items-center justify-center py-12"
+      className="w-full min-h-screen bg-[#f3f3f3] text-black flex flex-col items-center justify-center py-12"
     >
-      {isInView && (
-        <AnimatedText
-          className="font-extrabold text-center mb-6 md:mb-12 text-2xl md:text-4xl text-black"
-          text="PROJECTS"
-        />
-      )}
+       {isInView && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="text-center mb-32"
+          >
+            <div className="inline-block">
+              <h2 className="text-5xl md:text-7xl font-black text-black mb-6 tracking-tighter">
+                PROJECTS
+              </h2>
+              <div className="w-full h-1 bg-black transform rotate-1"></div>
+            </div>
+          </motion.div>
+        )}
+
       <FocusCardsDemo />
     </div>
   );

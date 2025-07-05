@@ -122,7 +122,7 @@ const SkillsCloud = forwardRef<HTMLDivElement>((props, ref) => {
                 className="text-xs sm:text-sm lg:text-base break-all"
               >
                 <span className="hidden sm:inline">
-                  Active: active (running) since Fri 2024-09-20 14:30:00
+                  Active: active (running) since Mon 2024-09-30 14:30:00
                 </span>
                 <span className="sm:hidden">Active: active (running)</span>
               </AnimatedSpan>
