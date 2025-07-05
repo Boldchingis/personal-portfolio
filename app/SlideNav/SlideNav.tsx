@@ -1,6 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Hero from "../_components/Hero"; // home
+import Main from "../_components/Main"; // about me
+import Side from "../_components/Side"; // tech skills
+import Section from "../_components/Section"; // projects
+import Footer from "../_components/Footer"; // contact
 
 interface CursorPosition {
   left: number;
@@ -23,6 +28,17 @@ export const SlideTabsExample: React.FC = () => {
     };
   }, [isSheetOpen]);
 
+  // Smooth scroll function
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   return (
     <>
       {/* Desktop Navigation */}
@@ -32,7 +48,7 @@ export const SlideTabsExample: React.FC = () => {
           <div className="pointer-events-none absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-[#f3f3f3] via-[#f3f3f3]/80 to-transparent z-20" />
           {/* Gradient fade right - matches main background */}
           <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-[#f3f3f3] via-[#f3f3f3]/80 to-transparent z-20" />
-          <SlideTabs />
+          <SlideTabs scrollToSection={scrollToSection} />
         </div>
       </div>
 
@@ -104,19 +120,44 @@ export const SlideTabsExample: React.FC = () => {
 
                 {/* Navigation Links */}
                 <nav className="mt-12 space-y-2">
-                  <MobileNavItem onClick={() => setIsSheetOpen(false)}>
+                  <MobileNavItem 
+                    onClick={() => {
+                      scrollToSection('home');
+                      setIsSheetOpen(false);
+                    }}
+                  >
                     Home
                   </MobileNavItem>
-                  <MobileNavItem onClick={() => setIsSheetOpen(false)}>
+                  <MobileNavItem 
+                    onClick={() => {
+                      scrollToSection('about');
+                      setIsSheetOpen(false);
+                    }}
+                  >
                     About me
                   </MobileNavItem>
-                  <MobileNavItem onClick={() => setIsSheetOpen(false)}>
+                  <MobileNavItem 
+                    onClick={() => {
+                      scrollToSection('skills');
+                      setIsSheetOpen(false);
+                    }}
+                  >
                     Tech skills
                   </MobileNavItem>
-                  <MobileNavItem onClick={() => setIsSheetOpen(false)}>
+                  <MobileNavItem 
+                    onClick={() => {
+                      scrollToSection('projects');
+                      setIsSheetOpen(false);
+                    }}
+                  >
                     Projects
                   </MobileNavItem>
-                  <MobileNavItem onClick={() => setIsSheetOpen(false)}>
+                  <MobileNavItem 
+                    onClick={() => {
+                      scrollToSection('contact');
+                      setIsSheetOpen(false);
+                    }}
+                  >
                     Contact
                   </MobileNavItem>
                 </nav>
@@ -125,11 +166,43 @@ export const SlideTabsExample: React.FC = () => {
           </>
         )}
       </AnimatePresence>
+
+      {/* Your Components */}
+      <div>
+        {/* Home Section */}
+        <section id="home" >
+          <Hero />
+        </section>
+
+        {/* About Me Section */}
+        <section id="about" >
+          <Main />
+        </section>
+
+        {/* Tech Skills Section */}
+        <section id="skills" >
+          <Side />
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" >
+          <Section />
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact">
+          <Footer />
+        </section>
+      </div>
     </>
   );
 };
 
-const SlideTabs: React.FC = () => {
+interface SlideTabsProps {
+  scrollToSection: (sectionId: string) => void;
+}
+
+const SlideTabs: React.FC<SlideTabsProps> = ({ scrollToSection }) => {
   const [position, setPosition] = useState<CursorPosition>({
     left: 0,
     width: 0,
@@ -147,11 +220,11 @@ const SlideTabs: React.FC = () => {
       className="relative mx-auto flex w-full max-w-full overflow-x-auto whitespace-nowrap rounded-full border border-gray-200 p-1 md:w-fit md:max-w-none backdrop-blur-xl bg-white/90 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth"
       style={{ WebkitOverflowScrolling: "touch" }}
     >
-      <Tab setPosition={setPosition}>Home</Tab>
-      <Tab setPosition={setPosition}>About me</Tab>
-      <Tab setPosition={setPosition}>Tech skills</Tab>
-      <Tab setPosition={setPosition}>Projects</Tab>
-      <Tab setPosition={setPosition}>Contact</Tab>
+      <Tab setPosition={setPosition} onClick={() => scrollToSection('home')}>Home</Tab>
+      <Tab setPosition={setPosition} onClick={() => scrollToSection('about')}>About me</Tab>
+      <Tab setPosition={setPosition} onClick={() => scrollToSection('skills')}>Tech skills</Tab>
+      <Tab setPosition={setPosition} onClick={() => scrollToSection('projects')}>Projects</Tab>
+      <Tab setPosition={setPosition} onClick={() => scrollToSection('contact')}>Contact</Tab>
       <Cursor position={position} />
     </ul>
   );
@@ -160,9 +233,10 @@ const SlideTabs: React.FC = () => {
 interface TabProps {
   children: React.ReactNode;
   setPosition: React.Dispatch<React.SetStateAction<CursorPosition>>;
+  onClick?: () => void;
 }
 
-const Tab: React.FC<TabProps> = ({ children, setPosition }) => {
+const Tab: React.FC<TabProps> = ({ children, setPosition, onClick }) => {
   const ref = useRef<HTMLLIElement | null>(null);
 
   return (
@@ -177,6 +251,7 @@ const Tab: React.FC<TabProps> = ({ children, setPosition }) => {
           opacity: 1,
         });
       }}
+      onClick={onClick}
       className="relative font-semibold z-10 block cursor-pointer px-4 py-3 md:px-6 md:py-4 text-sm md:text-base uppercase text-gray-700 hover:text-gray-900 transition-colors duration-200 flex-shrink-0"
     >
       {children}

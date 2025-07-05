@@ -58,7 +58,11 @@ const SkillsCloud = forwardRef<HTMLDivElement>((props, ref) => {
   const startDelay = 1800;
 
   return (
-    <div ref={containerRef} className="w-full max-w-5xl mx-auto px-2 sm:px-4 lg:px-8">
+    <div
+      ref={containerRef}
+      className="w-full max-w-5xl mx-auto px-2 sm:px-4 lg:px-8"
+      style={{ background: "#f3f3f3" }}
+    >
       <Terminal className="bg-[#f3f3f3] text-gray-800 border border-gray-300 shadow-md rounded-lg font-mono p-2 sm:p-4 lg:p-6 overflow-hidden">
         {isVisible && (
           <>
@@ -76,9 +80,14 @@ const SkillsCloud = forwardRef<HTMLDivElement>((props, ref) => {
                   delay={startDelay + index * 100}
                   className="flex items-center gap-1 sm:gap-2 text-gray-800 min-w-0 flex-shrink-0"
                 >
-                  <img src={skill.icon} alt={skill.name} className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                  <span 
-                    style={{ color: skill.color }} 
+                  <img
+                    src={skill.icon}
+                    alt={skill.name}
+                    className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0"
+                    loading="lazy"
+                  />
+                  <span
+                    style={{ color: skill.color }}
                     className="text-xs sm:text-sm lg:text-base truncate min-w-0"
                   >
                     {skill.package}
@@ -87,78 +96,49 @@ const SkillsCloud = forwardRef<HTMLDivElement>((props, ref) => {
               ))}
             </div>
 
-            <TypingAnimation 
-              delay={startDelay + techSkills.length * 100 + 300} 
+            <TypingAnimation
+            duration={0}
+              delay={startDelay + techSkills.length * 100 + 300}
               className="text-gray-700 mt-4 text-xs sm:text-sm lg:text-base break-all"
             >
               &gt; systemctl status developer.service
             </TypingAnimation>
 
             <div className="space-y-1 mt-2">
-              <AnimatedSpan 
+              <AnimatedSpan
                 delay={startDelay + techSkills.length * 100 + 800}
                 className="text-xs sm:text-sm lg:text-base break-words"
               >
-               - Full Stack Developer
+                - Full Stack Developer
               </AnimatedSpan>
-              <AnimatedSpan 
-                delay={startDelay + techSkills.length * 100 + 1000} 
+              <AnimatedSpan
+                delay={startDelay + techSkills.length * 100 + 1000}
                 className="text-gray-600 text-xs sm:text-sm lg:text-base"
               >
                 Loaded: loaded (enabled)
               </AnimatedSpan>
-              <AnimatedSpan 
+              <AnimatedSpan
                 delay={startDelay + techSkills.length * 100 + 1200}
                 className="text-xs sm:text-sm lg:text-base break-all"
               >
-                <span className="hidden sm:inline">Active: active (running) since Fri 2025-07-04 10:30:00</span>
+                <span className="hidden sm:inline">
+                  Active: active (running) since Fri 2024-09-20 14:30:00
+                </span>
                 <span className="sm:hidden">Active: active (running)</span>
               </AnimatedSpan>
-              <AnimatedSpan 
-                delay={startDelay + techSkills.length * 100 + 1400} 
+              <AnimatedSpan
+                delay={startDelay + techSkills.length * 100 + 1400}
                 className="text-gray-600 text-xs sm:text-sm lg:text-base break-words"
               >
                 Main PID: 1337 (fullstack)
               </AnimatedSpan>
-              <AnimatedSpan 
-                delay={startDelay + techSkills.length * 100 + 1600} 
+              <AnimatedSpan
+                delay={startDelay + techSkills.length * 100 + 1600}
                 className="text-gray-600 text-xs sm:text-sm lg:text-base break-words"
               >
                 Tasks: 42, Memory: 256MB, CPU: 3.14s
               </AnimatedSpan>
-              <AnimatedSpan 
-                delay={startDelay + techSkills.length * 100 + 1800} 
-                className="text-gray-600 text-xs sm:text-sm lg:text-base break-words"
-              >
-              - /system.slice/developer.service
-              </AnimatedSpan>
             </div>
-
-            <TypingAnimation 
-              delay={startDelay + techSkills.length * 100 + 2300} 
-              className="text-gray-700 mt-4 text-xs sm:text-sm lg:text-base break-all"
-            >
-              &gt; uname -a
-            </TypingAnimation>
-            <AnimatedSpan 
-              delay={startDelay + techSkills.length * 100 + 2800}
-              className="text-xs sm:text-sm lg:text-base break-all"
-            >
-              Linux x86_64 GNU/Linux
-            </AnimatedSpan>
-
-            <TypingAnimation 
-              delay={startDelay + techSkills.length * 100 + 3200} 
-              className="text-gray-700 text-xs sm:text-sm lg:text-base"
-            >
-              &gt; echo "btw i use arch"
-            </TypingAnimation>
-            <AnimatedSpan 
-              delay={startDelay + techSkills.length * 100 + 3600} 
-              className="text-gray-800 text-xs sm:text-sm lg:text-base"
-            >
-              btw i use arch
-            </AnimatedSpan>
           </>
         )}
       </Terminal>

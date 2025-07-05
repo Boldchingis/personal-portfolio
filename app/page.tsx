@@ -46,10 +46,7 @@ export default function Home() {
           </FadeContent>
         </div>
         <SlideTabsExample />
-        <Hero />
-        <Main />
-        <Section />
-        <Footer />
+
       </ClickSpark>
     </div>
   );
