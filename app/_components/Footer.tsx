@@ -39,16 +39,16 @@ export default function Footer() {
     >
       {/* Particles background */}
       <div className="absolute inset-0 z-0">
-        <Particles
-          particleColors={["#000000", "#000000"]}
+      <Particles
+        particleColors={["#000000", "#000000"]}
           particleCount={400}
-          particleSpread={10}
-          speed={0.5}
-          particleBaseSize={200}
-          moveParticlesOnHover={true}
-          alphaParticles={true}
-          disableRotation={true}
-        />  
+        particleSpread={10}
+        speed={0.5}
+        particleBaseSize={200}
+        moveParticlesOnHover={true}
+        alphaParticles={true}
+        disableRotation={true}
+      />
       </div>
       
       <div className="relative z-10 w-full max-w-7xl mx-auto px-8 py-32">
