@@ -1,67 +1,52 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useInView, motion } from "framer-motion";
-import { AnimatedText } from "@/components/ui/animated-underline-text-one";
-import { FocusCards } from "@/components/ui/focus-card";
-
-export function FocusCardsDemo() {
-  const cards = [
-    {
-      title: "Forest Adventure",
-      src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Valley of life",
-      src: "https://images.unsplash.com/photo-1600271772470-bd22a42787b3?q=80&w=3072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Sala behta hi jayega",
-      src: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?q=80&w=3070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Camping is for pros",
-      src: "https://images.unsplash.com/photo-1486915309851-b0cc1f8a0084?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "The road not taken",
-      src: "https://images.unsplash.com/photo-1507041957456-9c397ce39c97?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "The First Rule",
-      src: "https://assets.aceternity.com/the-first-rule.png",
-    },
-  ];
-
-  return <FocusCards cards={cards} />;
-}
+import { ProjectCard } from "@/components/ui/project-card";
+import projectData from "../projectData.json";
 
 export default function Section() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true });
+  const [hovered, setHovered] = useState<number | null>(null);
 
   return (
     <div
       ref={sectionRef}
-      className="w-full min-h-screen bg-[#f3f3f3] text-black flex flex-col items-center justify-center py-12"
+      className="w-full min-h-screen bg-[#f3f3f3] dark:bg-gray-900 text-gray-900 dark:text-white"
     >
-       {isInView && (
+      <div className="max-w-7xl mx-auto px-4 py-20">
+        {/* Title Section */}
+        {isInView && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="text-center mb-32"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
-            <div className="inline-block">
-              <h2 className="text-5xl md:text-7xl font-black text-black mb-6 tracking-tighter">
-                PROJECTS
-              </h2>
-              <div className="w-full h-1 bg-black transform rotate-1"></div>
-            </div>
+                <div className="inline-block">
+            <h2 className="text-5xl md:text-7xl font-black text-black mb-6 tracking-tighter">
+              PROJECTS
+            </h2>
+            <div className="w-full h-1 bg-black transform rotate-1"></div>
+          </div>
+
           </motion.div>
         )}
 
-      <FocusCardsDemo />
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projectData.map((project, index) => (
+            <ProjectCard 
+              key={project.id} 
+              project={project} 
+              index={index}
+              hovered={hovered}
+              setHovered={setHovered}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

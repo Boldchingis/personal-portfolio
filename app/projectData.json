@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "title": "Zevtabs",
+    "description": "I worked around 70 hours as a frontend developer on this office rental website.",
+    "githubLink": "#",
+    "deployedLink": "http://zevtabs.mn:3001/",
+    "image": "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "techStack": ["React.js", "JavaScript", "REST API", "Tailwind CSS"],
+    "category": "Frontend"
+  },
+  {
+    "id": 2,
+    "title": "Restaurant Website (Pinecone Intern)",
+    "description": "Built during a 2-month internship at Pinecone. I learned monorepo architecture and practiced testing with ESLint, unit tests, Cypress, and Jest.",
+    "githubLink": "https://github.com/pinecone-studio/pinecone-intern-monorepo",
+    "deployedLink": "https://github.com/pinecone-studio/pinecone-intern-monorepo",
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "techStack": [
+      "Monorepo",
+      "ESLint",
+      "Unit Testing",
+      "Cypress",
+      "Jest",
+      "TypeScript",
+      "Next.js",
+      "GraphQL",
+      "Tailwind CSS",
+      "Prisma",
+      "MongoDB"
+    ],
+    "category": "Full Stack"
+  },
+  {
+    "id": 3,
+    "title": "E-commerce Website",
+    "description": "A modern e-commerce site with smooth UI/UX, responsive design, and real money payment integration.",
+    "githubLink": "https://github.com/pinecone-2a/blackArch",
+    "deployedLink": "https://pineshop.vercel.app/",
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "techStack": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "GSAP",
+      "Algolia",
+      "MongoDB",
+      "Prisma"
+    ],
+    "category": "Full Stack"
+  },
+
+  {
+    "id": 4,
+    "title": "Buy Me a Coffee Clone",
+    "description": "My first team project—a clone of 'Buy Me a Coffee' without real payment integration.",
+    "githubLink": "https://github.com/pinecone-2a/team-ctrlZ-frontend",
+    "deployedLink": "https://team-ctrl-z-frontend.vercel.app/",
+    "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "techStack": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "JavaScript",
+      "Framer Motion",
+      "SQL",
+      "Prisma"
+    ],
+    "category": "Full Stack"
+  },
+  {
+    "id": 5,
+    "title": "Movie App",
+    "description": "A movie app with search, filters, and detailed info. Features a clean, modern design.",
+    "githubLink": "https://github.com/Boldchingis/movie-app",
+    "deployedLink": "https://github.com/Boldchingis/movie-app",
+    "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "techStack": ["React", "JavaScript", "Tailwind CSS", "API Integration"],
+    "category": "Frontend"
+  },
+  {
+    "id": 6,
+    "title": "Weather App",
+    "description": "A real-time weather app showing current conditions, forecasts, and location-based data.",
+    "githubLink": "https://github.com/Boldchingis/weather-app",
+    "deployedLink": "https://weather-app-steel-five-77.vercel.app/",
+    "image": "https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "techStack": ["React", "JavaScript", "Weather API", "Tailwind CSS"],
+    "category": "Frontend"
+  }
+]
