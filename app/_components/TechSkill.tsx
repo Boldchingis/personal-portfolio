@@ -58,10 +58,9 @@ const SkillsCloud = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
       ref={containerRef}
-      className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden"
-      style={{ background: "#f3f3f3" }}
+      className="w-full  max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
-      <Terminal className="bg-[#f3f3f3] text-gray-800 rounded-xl font-mono p-0 overflow-hidden transition-all duration-700 ease-out min-h-[500px] sm:min-h-[550px] lg:min-h-[600px]">
+      <Terminal className="bg-white text-gray-800 rounded-xl font-mono p-0 overflow-hidden transition-all duration-700 ease-out min-h-[500px] sm:min-h-[550px] lg:min-h-[600px]">
         {isVisible && (
           <div className="p-3 sm:p-6 space-y-1 overflow-x-hidden">
             {/* User prompt with typing cursor */}

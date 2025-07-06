@@ -55,39 +55,18 @@ export default function Main() {
                 {/* Birthday Counter - Right Side */}
                 <div className="flex-1 max-w-xs">
                   <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-200/50">
-                    <div className="flex flex-col space-y-1">
-                      {/* Top Row - 3 elements */}
-                      <div className="flex justify-between">
-                        <div className="text-center flex-1">
-                          <div className="text-xl font-bold text-gray-800">17</div>
-                          <div className="text-xs text-gray-600 mt-1">Years</div>
-                        </div>
-                        <div className="text-center flex-1">
-                          <div className="text-xl font-bold text-gray-800">8</div>
-                          <div className="text-xs text-gray-600 mt-1">Months</div>
-                        </div>
-                        <div className="text-center flex-1">
-                          <div className="text-xl font-bold text-gray-800">15</div>
-                          <div className="text-xs text-gray-600 mt-1">Days</div>
-                        </div>
-                      </div>
-                      
-                      {/* Bottom Row - 3 elements */}
-                      <div className="flex justify-between">
-                        <div className="text-center flex-1">
-                          <div className="text-xl font-bold text-gray-800">12</div>
-                          <div className="text-xs text-gray-600 mt-1">Hours</div>
-                        </div>
-                        <div className="text-center flex-1">
-                          <div className="text-xl font-bold text-gray-800">45</div>
-                          <div className="text-xs text-gray-600 mt-1">Minutes</div>
-                        </div>
-                        <div className="text-center flex-1">
-                          <div className="text-xl font-bold text-gray-800">32</div>
-                          <div className="text-xs text-gray-600 mt-1">Seconds</div>
-                        </div>
-                      </div>
-                    </div>
+                    <BirthdayCounter
+                      birthDate="2006-07-20"
+                      fontSize={28}
+                      showAge={true}
+                      showMonths={true}
+                      showDays={true}
+                      showHours={true}
+                      showMinutes={true}
+                      showSeconds={true}
+                      textColor="#000000"
+                      fontWeight={800}
+                    />
                   </div>
                 </div>
               </motion.div>
