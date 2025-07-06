@@ -14,7 +14,7 @@
     "title": "Restaurant Website (Pinecone Intern)",
     "description": "Built during a 2-month internship at Pinecone. I learned monorepo architecture and practiced testing with ESLint, unit tests, Cypress, and Jest.",
     "githubLink": "https://github.com/pinecone-studio/pinecone-intern-monorepo",
-    "deployedLink": "https://github.com/pinecone-studio/pinecone-intern-monorepo",
+    "deployedLink": "https://restaurant-frontend-blond.vercel.app",
     "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "techStack": [
       "Monorepo",
@@ -74,7 +74,7 @@
     "title": "Movie App",
     "description": "A movie app with search, filters, and detailed info. Features a clean, modern design.",
     "githubLink": "https://github.com/Boldchingis/movie-app",
-    "deployedLink": "https://github.com/Boldchingis/movie-app",
+    "deployedLink": "https://movie-app-three-opal-51.vercel.app/",
     "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "techStack": ["React", "JavaScript", "Tailwind CSS", "API Integration"],
     "category": "Frontend"
