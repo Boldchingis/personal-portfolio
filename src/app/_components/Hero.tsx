@@ -1,17 +1,9 @@
 "use client";
-import dynamic from "next/dynamic";
+
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import RotatingText from "../RotatingText/RotatingText";
 
-// Dynamic import with no SSR for BlurText
-const BlurText = dynamic(() => import("../BlurText/BlurText"), {
-  ssr: false,
-  loading: () => (
-    <div className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl w-full flex justify-center max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto text-gray-800">
-      Hi I'm Boldchingis
-    </div>
-  )
-});
+
 
 export default function Hero() {
   const handleAnimationComplete = () => {
@@ -33,14 +25,9 @@ export default function Hero() {
                   ease: [0.25, 0.46, 0.45, 0.94] // Custom easing for better performance
                 }}
               >
-                <BlurText
-                  text="Hi I'm Boldchingis"
-                  delay={50}
-                  animateBy="words"
-                  direction="top"
-                  onAnimationComplete={handleAnimationComplete}
-                  className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl w-full flex justify-center max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto text-gray-800"
-                />
+
+                <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl w-full flex justify-center max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto text-gray-800"> i I'm Boldchingis </h1>
+  
               </m.div>
               <m.div
                 className="flex items-center gap-2"
