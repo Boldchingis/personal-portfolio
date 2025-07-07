@@ -26,7 +26,7 @@ export default function Hero() {
                 }}
               >
 
-                <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl w-full flex justify-center max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto text-gray-800"> i I'm Boldchingis </h1>
+                <h1 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl w-full flex justify-center max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto text-gray-800"> I'm Boldchingis </h1>
   
               </m.div>
               <m.div
