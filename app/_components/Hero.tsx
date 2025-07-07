@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import ElasticCursor from "../utils/ElasticCursor";
 import { Meteors } from "@/components/magicui/meteors";
 import RotatingText from "../RotatingText/RotatingText";
 
@@ -15,7 +14,6 @@ export default function Hero() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-[#f3f3f3]">
-      <ElasticCursor />
 
       <div className="flex flex-col items-center justify-center min-h-[60vh] md:min-h-screen">
         <div className="w-full h-[400px] md:h-[600px] relative">

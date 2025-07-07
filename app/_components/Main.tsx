@@ -7,9 +7,6 @@ import { useRef } from "react";
 import { TypingAnimation } from "@/components/magicui/terminal";
 
 const BlurText = dynamic(() => import("../BlurText/BlurText"), { ssr: false });
-const ElasticCursor = dynamic(() => import("../utils/ElasticCursor"), {
-  ssr: false,
-});
 
 export default function Main() {
   const handleAnimationComplete = () => {
@@ -209,7 +206,6 @@ export default function Main() {
         </div>
       </div>
 
-      <ElasticCursor />
     </div>
   );
 }
