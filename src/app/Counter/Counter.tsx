@@ -1,5 +1,5 @@
 "use client";
-import { MotionValue, motion, useSpring, useTransform } from "framer-motion";
+import { MotionValue, m, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 
 function Number({
@@ -32,7 +32,7 @@ function Number({
     justifyContent: "center",
   };
 
-  return <motion.span style={{ ...style, y }}>{number}</motion.span>;
+  return <m.span style={{ ...style, y }}>{number}</m.span>;
 }
 
 function Digit({

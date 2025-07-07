@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Transition } from "framer-motion";
+import { m } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
 
 type BlurTextProps = {
@@ -101,7 +101,7 @@ const BlurText: React.FC<BlurTextProps> = ({
       {elements.map((segment, index) => {
         const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
 
-        const spanTransition: Transition = {
+        const spanTransition = {
           duration: totalDuration,
           times,
           delay: (index * delay) / 1000,
@@ -109,7 +109,7 @@ const BlurText: React.FC<BlurTextProps> = ({
         (spanTransition as any).ease = easing;
 
         return (
-          <motion.span
+          <m.span
             key={index}
             initial={fromSnapshot}
             animate={inView ? animateKeyframes : fromSnapshot}
@@ -124,7 +124,7 @@ const BlurText: React.FC<BlurTextProps> = ({
           >
             {segment === " " ? "\u00A0" : segment}
             {animateBy === "words" && index < elements.length - 1 && "\u00A0"}
-          </motion.span>
+          </m.span>
         );
       })}
     </p>

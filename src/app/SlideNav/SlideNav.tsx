@@ -1,11 +1,20 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Hero from "../_components/Hero"; // home
-import Main from "../_components/Main"; // about me
-import Side from "../_components/Side"; // tech skills
-import Section from "../_components/Section"; // projects
-import Footer from "../_components/Footer"; // contact
+
+// Dynamic imports for heavy components
+const Hero = lazy(() => import("../_components/Hero"));
+const Main = lazy(() => import("../_components/Main"));
+const Side = lazy(() => import("../_components/Side"));
+const Section = lazy(() => import("../_components/Section"));
+const Footer = lazy(() => import("../_components/Footer"));
+
+// Loading component for sections
+const SectionLoader = () => (
+  <div className="min-h-screen bg-[#f3f3f3] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 interface CursorPosition {
   left: number;
@@ -28,7 +37,7 @@ export const SlideTabsExample: React.FC = () => {
     };
   }, [isSheetOpen]);
 
-  // Smooth scroll function
+  // Smooth scroll function with performance optimization
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -57,6 +66,7 @@ export const SlideTabsExample: React.FC = () => {
         <button
           onClick={() => setIsSheetOpen(true)}
           className="p-3 rounded-full backdrop-blur-xl bg-white/90 border border-black hover:bg-white/95 transition-all duration-200"
+          aria-label="Open navigation menu"
         >
           <svg
             width="24"
@@ -76,7 +86,7 @@ export const SlideTabsExample: React.FC = () => {
       </div>
 
       {/* Mobile Sheet */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isSheetOpen && (
           <>
             {/* Overlay */}
@@ -101,6 +111,7 @@ export const SlideTabsExample: React.FC = () => {
                 <button
                   onClick={() => setIsSheetOpen(false)}
                   className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                  aria-label="Close navigation menu"
                 >
                   <svg
                     width="24"
@@ -167,31 +178,41 @@ export const SlideTabsExample: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Your Components */}
+      {/* Your Components with Suspense */}
       <div>
         {/* Home Section */}
-        <section id="home" >
-          <Hero />
+        <section id="home">
+          <Suspense fallback={<SectionLoader />}>
+            <Hero />
+          </Suspense>
         </section>
 
         {/* About Me Section */}
-        <section id="about" >
-          <Main />
+        <section id="about">
+          <Suspense fallback={<SectionLoader />}>
+            <Main />
+          </Suspense>
         </section>
 
         {/* Tech Skills Section */}
-        <section id="skills" >
-          <Side />
+        <section id="skills">
+          <Suspense fallback={<SectionLoader />}>
+            <Side />
+          </Suspense>
         </section>
 
         {/* Projects Section */}
-        <section id="projects" >
-          <Section />
+        <section id="projects">
+          <Suspense fallback={<SectionLoader />}>
+            <Section />
+          </Suspense>
         </section>
 
         {/* Contact Section */}
         <section id="contact">
-          <Footer />
+          <Suspense fallback={<SectionLoader />}>
+            <Footer />
+          </Suspense>
         </section>
       </div>
     </>

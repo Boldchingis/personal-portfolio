@@ -43,17 +43,19 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --animate-meteor: meteor 5s linear infinite;
+  
+  /* Optimized meteor animation with better performance */
   @keyframes meteor {
-  0% {
-    transform: rotate(var(--angle)) translateX(0);
-    opacity: 1;
+    0% {
+      transform: rotate(var(--angle)) translateX(0);
+      opacity: 1;
     }
-  70% {
-    opacity: 1;
+    70% {
+      opacity: 1;
     }
-  100% {
-    transform: rotate(var(--angle)) translateX(-500px);
-    opacity: 0;
+    100% {
+      transform: rotate(var(--angle)) translateX(-500px);
+      opacity: 0;
     }
   }
 }
@@ -131,8 +133,35 @@
   * {
     @apply border-border outline-ring/50;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-background text-foreground;
+    /* Optimize for performance */
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Optimize images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -143,6 +172,26 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  
+  /* Performance optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .will-change-opacity {
+    will-change: opacity;
+  }
+  
+  /* Optimize backdrop blur */
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  
+  .backdrop-blur-xl {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
 }
 
 /* Nunito font class */
@@ -152,47 +201,93 @@
   font-style: normal;
 }
 
-/* Floating animations for social media icons */
+/* Optimized floating animations with better performance */
 @keyframes float-left {
-  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-  25% { transform: translateY(-20px) translateX(-10px) rotate(2deg); }
-  50% { transform: translateY(-10px) translateX(5px) rotate(-1deg); }
-  75% { transform: translateY(-15px) translateX(-5px) rotate(1deg); }
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+  }
+  25% { 
+    transform: translateY(-20px) translateX(-10px) rotate(2deg); 
+  }
+  50% { 
+    transform: translateY(-10px) translateX(5px) rotate(-1deg); 
+  }
+  75% { 
+    transform: translateY(-15px) translateX(-5px) rotate(1deg); 
+  }
 }
 
 @keyframes float-right {
-  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-  25% { transform: translateY(-15px) translateX(10px) rotate(-2deg); }
-  50% { transform: translateY(-25px) translateX(-5px) rotate(1deg); }
-  75% { transform: translateY(-5px) translateX(15px) rotate(-1deg); }
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+  }
+  25% { 
+    transform: translateY(-15px) translateX(10px) rotate(-2deg); 
+  }
+  50% { 
+    transform: translateY(-25px) translateX(-5px) rotate(1deg); 
+  }
+  75% { 
+    transform: translateY(-5px) translateX(15px) rotate(-1deg); 
+  }
 }
 
 @keyframes float-email {
-  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-  33% { transform: translateY(-15px) translateX(-8px) rotate(3deg); }
-  66% { transform: translateY(-8px) translateX(12px) rotate(-2deg); }
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+  }
+  33% { 
+    transform: translateY(-15px) translateX(-8px) rotate(3deg); 
+  }
+  66% { 
+    transform: translateY(-8px) translateX(12px) rotate(-2deg); 
+  }
 }
 
 @keyframes float-phone {
-  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-  33% { transform: translateY(-12px) translateX(10px) rotate(-3deg); }
-  66% { transform: translateY(-20px) translateX(-5px) rotate(2deg); }
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+  }
+  33% { 
+    transform: translateY(-12px) translateX(10px) rotate(-3deg); 
+  }
+  66% { 
+    transform: translateY(-20px) translateX(-5px) rotate(2deg); 
+  }
 }
 
 @keyframes float-github {
-  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-  33% { transform: translateY(-18px) translateX(-12px) rotate(1deg); }
-  66% { transform: translateY(-5px) translateX(8px) rotate(-3deg); }
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+  }
+  33% { 
+    transform: translateY(-18px) translateX(-12px) rotate(1deg); 
+  }
+  66% { 
+    transform: translateY(-5px) translateX(8px) rotate(-3deg); 
+  }
 }
 
 @keyframes float-instagram {
-  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-  33% { transform: translateY(-10px) translateX(15px) rotate(-2deg); }
-  66% { transform: translateY(-22px) translateX(-8px) rotate(3deg); }
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+  }
+  33% { 
+    transform: translateY(-10px) translateX(15px) rotate(-2deg); 
+  }
+  66% { 
+    transform: translateY(-22px) translateX(-8px) rotate(3deg); 
+  }
 }
 
 @keyframes float-facebook {
-  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-  33% { transform: translateY(-16px) translateX(-10px) rotate(2deg); }
-  66% { transform: translateY(-8px) translateX(12px) rotate(-1deg); }
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+  }
+  33% { 
+    transform: translateY(-16px) translateX(-10px) rotate(2deg); 
+  }
+  66% { 
+    transform: translateY(-8px) translateX(12px) rotate(-1deg); 
+  }
 }
