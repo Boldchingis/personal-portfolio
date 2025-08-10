@@ -358,7 +358,7 @@ const SlideTabs: React.FC<SlideTabsProps> = ({ scrollToSection, activeSection })
       <Cursor position={position} />
       
       <Tab 
-        ref={(el) => (tabRefs.current.home = el)}
+        ref={(el) => { tabRefs.current.home = el; }}
         setPosition={setPosition} 
         onClick={() => scrollToSection('home')}
         isActive={activeSection === 'home'}
@@ -367,7 +367,7 @@ const SlideTabs: React.FC<SlideTabsProps> = ({ scrollToSection, activeSection })
         Home
       </Tab>
       <Tab 
-        ref={(el) => (tabRefs.current.about = el)}
+        ref={(el) => { tabRefs.current.about = el; }}
         setPosition={setPosition} 
         onClick={() => scrollToSection('about')}
         isActive={activeSection === 'about'}
@@ -376,7 +376,7 @@ const SlideTabs: React.FC<SlideTabsProps> = ({ scrollToSection, activeSection })
         About me
       </Tab>
       <Tab 
-        ref={(el) => (tabRefs.current.skills = el)}
+        ref={(el) => { tabRefs.current.skills = el; }}
         setPosition={setPosition} 
         onClick={() => scrollToSection('skills')}
         isActive={activeSection === 'skills'}
@@ -385,7 +385,7 @@ const SlideTabs: React.FC<SlideTabsProps> = ({ scrollToSection, activeSection })
         Tech skills
       </Tab>
       <Tab 
-        ref={(el) => (tabRefs.current.projects = el)}
+        ref={(el) => { tabRefs.current.projects = el; }}
         setPosition={setPosition} 
         onClick={() => scrollToSection('projects')}
         isActive={activeSection === 'projects'}
@@ -394,7 +394,7 @@ const SlideTabs: React.FC<SlideTabsProps> = ({ scrollToSection, activeSection })
         Projects
       </Tab>
       <Tab 
-        ref={(el) => (tabRefs.current.contact = el)}
+        ref={(el) => { tabRefs.current.contact = el; }}
         setPosition={setPosition} 
         onClick={() => scrollToSection('contact')}
         isActive={activeSection === 'contact'}

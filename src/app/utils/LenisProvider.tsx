@@ -14,7 +14,6 @@ const LenisProvider = () => {
       wheelMultiplier: 1.2,
       touchMultiplier: 2,
       infinite: false,
-      normalizeWheel: true,
       // Enhanced settings for better performance
       lerp: 0.1,
       syncTouch: false,
