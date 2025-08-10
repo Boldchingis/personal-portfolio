@@ -1,26 +1,11 @@
 "use client";
-import dynamic from "next/dynamic";
 import BirthdayCounter from "../Counter/Counter";
 import Image from "next/image";
-import { LazyMotion, domAnimation, m, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { TypingAnimation } from "@/components/magicui/terminal";
 
-// Dynamic import with no SSR for BlurText
-const BlurText = dynamic(() => import("../BlurText/BlurText"), { 
-  ssr: false,
-  loading: () => (
-    <div className="font-semibold text-base text-gray-900 leading-relaxed">
-      I'm a full-stack developer with a strong focus on front-end development...
-    </div>
-  )
-});
-
 export default function Main() {
-  const handleAnimationComplete = () => {
-    console.log("Animation completed!");
-  };
-
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { 
     once: true, 
@@ -29,19 +14,21 @@ export default function Main() {
   });
 
   return (
-    <LazyMotion features={domAnimation} strict>
-      <div className="min-h-screen bg-[#f3f3f3] text-black relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0 pointer-events-none">
+    <div className="min-h-screen bg-[#f3f3f3] text-black relative overflow-hidden">
+        {/* Enhanced background decorative elements */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.02]">
+          <div className="absolute top-1/3 right-1/4 w-72 h-72 rounded-full bg-black blur-3xl" />
+          <div className="absolute bottom-1/4 left-1/3 w-56 h-56 rounded-full bg-black blur-3xl" />
         </div>
 
-        <div ref={containerRef} className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6">
+        <div ref={containerRef} className="container-perfect relative z-10 section-spacing">
+          <div className="min-h-screen flex items-center justify-center">
           <div className="max-w-6xl w-full">
             {/* Mobile Layout */}
             <div className="lg:hidden">
               <div className="flex flex-col items-center space-y-6">
                 {/* Profile Image and Birthday Counter Row - Mobile */}
-                <m.div 
+                <motion.div 
                   className="w-full flex items-center justify-between space-x-4"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -82,10 +69,10 @@ export default function Main() {
                       />
                     </div>
                   </div>
-                </m.div>
+                </motion.div>
 
                 {/* Fun Fact - Mobile */}
-                <m.div 
+                <motion.div 
                   className="text-center px-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -95,18 +82,17 @@ export default function Main() {
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }}
                 >
-                  <BlurText
-                    text="Fun fact: This is the time I'm currently living. 😂"
-                    delay={20}
-                    animateBy="words"
-                    direction="bottom"
-                    onAnimationComplete={handleAnimationComplete}
+                  <TypingAnimation
                     className="font-semibold opacity-70 text-sm text-black leading-relaxed"
-                  />
-                </m.div>
+                    duration={5}
+                    delay={600}
+                  >
+                    Fun fact: This is my total lifespan right now. 😂
+                  </TypingAnimation>
+                </motion.div>
 
                 {/* Main Description - Mobile */}
-                <m.div 
+                <motion.div 
                   className="w-full px-4"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -117,13 +103,14 @@ export default function Main() {
                   }}
                 >
                   <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-black/10">
-                    <BlurText
-                      text="I'm a full-stack developer with a strong focus on front-end development. I care about creating smooth, user-friendly interfaces that are easy to use. I like using design systems to keep projects consistent and easy to maintain. I enjoy working with modern front-end frameworks that help me build features quickly."
-                      delay={20}
+                    <TypingAnimation
                       className="font-semibold text-base text-gray-900 leading-relaxed"
-                    />
+                      duration={10}
+                      delay={800}
+                    >
+I'm a full-stack developer with a focus on front-end development. I care about building smooth, user-friendly interfaces that are easy to navigate. I enjoy working with modern front-end frameworks to bring ideas to life quickly and effectively.                    </TypingAnimation>
                   </div>
-                </m.div>
+                </motion.div>
               </div>
             </div>
 
@@ -131,7 +118,7 @@ export default function Main() {
             <div className="hidden lg:grid lg:grid-cols-12 gap-16 items-center">
               
               {/* Left Column - Profile & Counter */}
-              <m.div 
+              <motion.div 
                 className="lg:col-span-5 space-y-8"
                 initial={{ opacity: 0, x: -50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
@@ -157,7 +144,7 @@ export default function Main() {
                 </div>
 
                 {/* Birthday Counter with enhanced styling */}
-                <m.div 
+                <motion.div 
                   className="relative"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -180,10 +167,10 @@ export default function Main() {
                       fontWeight={800}
                     />
                   </div>
-                </m.div>
+                </motion.div>
 
                 {/* Fun Fact Section - Desktop Only */}
-                <m.div 
+                <motion.div 
                   className="relative"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -193,19 +180,18 @@ export default function Main() {
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }}
                 >
-                  <BlurText
-                    text="Fun fact: This is the time I'm currently living. 😂"
-                    delay={20}
-                    animateBy="words"
-                    direction="bottom"
-                    onAnimationComplete={handleAnimationComplete}
+                  <TypingAnimation
                     className="font-semibold opacity-70 text-lg text-black leading-relaxed"
-                  />
-                </m.div>
-              </m.div>
+                    duration={5}
+                    delay={800}
+                  >
+                    Fun fact: This is my total lifespan right now. 😂
+                  </TypingAnimation>
+                </motion.div>
+              </motion.div>
 
               {/* Right Column - Text Content */}
-              <m.div 
+              <motion.div 
                 className="lg:col-span-7 space-y-12"
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
@@ -216,7 +202,7 @@ export default function Main() {
                 }}
               >
                 {/* Main Description */}
-                <m.div 
+                <motion.div 
                   className="relative"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -228,16 +214,17 @@ export default function Main() {
                 >
                   <div className="absolute -inset-4 bg-white/30 backdrop-blur-sm rounded-2xl transform rotate-1"></div>
                   <div className="relative bg-white/60 backdrop-blur-sm rounded-2xl p-10 shadow-xl border border-black/10">
-                    <BlurText
-                      text="I'm a full-stack developer with a strong focus on front-end development. I care about creating smooth, user-friendly interfaces that are easy to use. I like using design systems to keep projects consistent and easy to maintain. I enjoy working with modern front-end frameworks that help me build features quickly."
-                      delay={20}
+                    <TypingAnimation
                       className="font-semibold text-2xl text-gray-900 leading-relaxed"
-                    />
+                      duration={10}
+                      delay={1000}
+                    >
+I'm a full-stack developer with a focus on front-end development. I care about building smooth, user-friendly interfaces that are easy to navigate. I enjoy working with modern front-end frameworks to bring ideas to life quickly and effectively.                    </TypingAnimation>
                   </div>
-                </m.div>
+                </motion.div>
 
                 {/* Decorative accent */}
-                <m.div 
+                <motion.div 
                   className="flex items-center space-x-4"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -250,12 +237,12 @@ export default function Main() {
                   <div className="flex-1 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
                   <div className="w-2 h-2 bg-black rounded-full"></div>
                   <div className="flex-1 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
-                </m.div>
-              </m.div>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </div>
       </div>
-    </LazyMotion>
-  );
-}
+      </div>
+    );
+  }

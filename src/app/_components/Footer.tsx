@@ -33,40 +33,69 @@ export default function Footer() {
   };
 
   return (
-    <div 
-      ref={footerRef}
-      className="w-full min-h-screen relative bg-[#f3f3f3] flex flex-col items-center justify-center overflow-hidden"
-    >
+    <div className="min-h-screen bg-[#f3f3f3] relative overflow-hidden">
       {/* Particles background */}
       <div className="absolute inset-0 z-0">
-      <Particles
-        particleColors={["#000000", "#000000"]}
-          particleCount={400}
-        particleSpread={10}
-        speed={0.5}
-        particleBaseSize={200}
-        moveParticlesOnHover={true}
-        alphaParticles={true}
-        disableRotation={true}
-      />
+        <Particles
+          particleColors={["#000000", "#000000"]}
+          particleCount={300}
+          particleSpread={12}
+          speed={0.3}
+          particleBaseSize={150}
+          moveParticlesOnHover={true}
+          alphaParticles={true}
+          disableRotation={true}
+        />
       </div>
       
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-8 py-32">
-        {isInView && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="text-center mb-32"
-          >
-            <div className="inline-block">
-              <h2 className="text-5xl md:text-7xl font-black text-black mb-6 tracking-tighter">
-                LET'S CREATE
-              </h2>
-              <div className="w-full h-1 bg-black transform rotate-1"></div>
-            </div>
-          </motion.div>
-        )}
+      {/* Enhanced background decorative elements */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02]">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-black blur-3xl" />
+        <div className="absolute bottom-1/3 left-1/3 w-80 h-80 rounded-full bg-black blur-3xl" />
+      </div>
+      
+      <div className="container-perfect relative z-10 section-spacing">
+        <div 
+          ref={footerRef}
+          className="min-h-screen flex flex-col justify-center space-y-16 md:space-y-20"
+        >
+          {/* Title Section */}
+          {isInView && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ 
+                duration: 0.8, 
+                ease: [0.25, 0.46, 0.45, 0.94],
+                delay: 0.1
+              }}
+              className="text-center space-y-6"
+            >
+              <div className="inline-block relative">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black mb-4 tracking-tighter">
+                  LET'S CREATE
+                </h2>
+                
+                {/* Animated underline */}
+                <motion.div 
+                  className="w-full h-1 bg-black transform rotate-1 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                />
+              </div>
+              
+              {/* Optional subtitle */}
+              <motion.p 
+                className="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
+                Ready to bring your ideas to life? Let's connect and make something amazing together.
+              </motion.p>
+            </motion.div>
+          )}
 
         <div className="relative">
           {/* Floating Social Media Icons - Left Side */}
@@ -342,6 +371,7 @@ export default function Footer() {
           </motion.div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

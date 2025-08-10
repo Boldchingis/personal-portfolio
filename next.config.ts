@@ -3,8 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Enable experimental features for better performance
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react', '@tabler/icons-react'],
+    optimizePackageImports: ['framer-motion', 'lucide-react', '@tabler/icons-react', 'lenis'],
+    optimizeCss: true,
+    scrollRestoration: true,
   },
+  
+  // Enhanced performance optimizations
+  swcMinify: true,
+  poweredByHeader: false,
   
   // Turbopack configuration (now stable)
   turbopack: {

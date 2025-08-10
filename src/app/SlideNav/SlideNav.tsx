@@ -1,18 +1,36 @@
 "use client";
-import React, { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useRef, useState, lazy, Suspense, useCallback } from "react";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 
-// Dynamic imports for heavy components
+// Dynamic imports for heavy components with better error boundaries
 const Hero = lazy(() => import("../_components/Hero"));
 const Main = lazy(() => import("../_components/Main"));
 const Side = lazy(() => import("../_components/Side"));
 const Section = lazy(() => import("../_components/Section"));
 const Footer = lazy(() => import("../_components/Footer"));
 
-// Loading component for sections
-const SectionLoader = () => (
-  <div className="min-h-screen bg-[#f3f3f3] flex items-center justify-center">
-    <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin" />
+// Enhanced loading component with skeleton
+const SectionLoader = ({ variant = 'default' }: { variant?: 'hero' | 'default' }) => (
+  <div className={`${variant === 'hero' ? 'h-screen' : 'min-h-screen'} bg-[#f3f3f3] flex items-center justify-center relative overflow-hidden`}>
+    {/* Animated background pattern */}
+    <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-black/10 animate-pulse" />
+    </div>
+    
+    {/* Loading spinner with enhanced design */}
+    <div className="relative flex flex-col items-center space-y-4">
+      <div className="relative">
+        <div className="w-12 h-12 border-3 border-black/20 rounded-full animate-spin" />
+        <div className="absolute inset-0 w-12 h-12 border-3 border-transparent border-t-black rounded-full animate-spin" style={{ animationDuration: '0.75s' }} />
+      </div>
+      
+      {/* Loading text */}
+      <div className="flex space-x-1">
+        <div className="w-2 h-2 bg-black rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+        <div className="w-2 h-2 bg-black rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+        <div className="w-2 h-2 bg-black rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+      </div>
+    </div>
   </div>
 );
 
@@ -24,6 +42,12 @@ interface CursorPosition {
 
 export const SlideTabsExample: React.FC = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Section IDs for navigation
+  const sections = ['home', 'about', 'skills', 'projects', 'contact'];
 
   // Prevent scroll when mobile sheet is open
   useEffect(() => {
@@ -37,16 +61,70 @@ export const SlideTabsExample: React.FC = () => {
     };
   }, [isSheetOpen]);
 
-  // Smooth scroll function with performance optimization
-  const scrollToSection = (sectionId: string) => {
+  // Enhanced scroll to section with offset and smooth animation
+  const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
+      setIsScrolling(true);
+      setActiveSection(sectionId);
+      
+      // Calculate offset for fixed navigation
+      const navHeight = 80; // Approximate navigation height
+      const elementTop = element.offsetTop - navHeight;
+      
+      // Use smooth scroll with better performance
+      window.scrollTo({
+        top: elementTop,
+        behavior: 'smooth'
       });
+      
+      // Clear existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      
+      // Reset scrolling state after animation
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 1000);
     }
-  };
+  }, []);
+
+  // Intersection Observer for active section detection
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px', // Trigger when section is 20% visible from top
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      if (isScrolling) return; // Don't update during programmatic scrolling
+      
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all sections
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [sections, isScrolling]);
 
   return (
     <>
@@ -57,7 +135,7 @@ export const SlideTabsExample: React.FC = () => {
           <div className="pointer-events-none absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-[#f3f3f3] via-[#f3f3f3]/80 to-transparent z-20" />
           {/* Gradient fade right - matches main background */}
           <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-[#f3f3f3] via-[#f3f3f3]/80 to-transparent z-20" />
-          <SlideTabs scrollToSection={scrollToSection} />
+          <SlideTabs scrollToSection={scrollToSection} activeSection={activeSection} />
         </div>
       </div>
 
@@ -221,14 +299,42 @@ export const SlideTabsExample: React.FC = () => {
 
 interface SlideTabsProps {
   scrollToSection: (sectionId: string) => void;
+  activeSection: string;
 }
 
-const SlideTabs: React.FC<SlideTabsProps> = ({ scrollToSection }) => {
+const SlideTabs: React.FC<SlideTabsProps> = ({ scrollToSection, activeSection }) => {
   const [position, setPosition] = useState<CursorPosition>({
     left: 0,
     width: 0,
     opacity: 0,
   });
+  
+  const [activePosition, setActivePosition] = useState<CursorPosition>({
+    left: 0,
+    width: 0,
+    opacity: 0,
+  });
+
+  const tabRefs = useRef<{ [key: string]: HTMLLIElement | null }>({
+    home: null,
+    about: null,
+    skills: null,
+    projects: null,
+    contact: null,
+  });
+
+  // Update active tab position when activeSection changes
+  useEffect(() => {
+    const activeTabElement = tabRefs.current[activeSection];
+    if (activeTabElement) {
+      const { width } = activeTabElement.getBoundingClientRect();
+      setActivePosition({
+        left: activeTabElement.offsetLeft,
+        width,
+        opacity: 1,
+      });
+    }
+  }, [activeSection]);
 
   return (
     <ul
@@ -238,15 +344,64 @@ const SlideTabs: React.FC<SlideTabsProps> = ({ scrollToSection }) => {
           opacity: 0,
         }));
       }}
-      className="relative mx-auto flex w-full max-w-full overflow-x-auto whitespace-nowrap rounded-full border border-gray-200 p-1 md:w-fit md:max-w-none backdrop-blur-xl bg-white/90 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth"
+      className="relative mx-auto flex w-full max-w-full overflow-x-auto whitespace-nowrap rounded-full border border-gray-200/50 p-1.5 md:w-fit md:max-w-none backdrop-blur-xl bg-white/95 shadow-lg shadow-black/5 scrollbar-hide scroll-smooth"
       style={{ WebkitOverflowScrolling: "touch" }}
     >
-      <Tab setPosition={setPosition} onClick={() => scrollToSection('home')}>Home</Tab>
-      <Tab setPosition={setPosition} onClick={() => scrollToSection('about')}>About me</Tab>
-      <Tab setPosition={setPosition} onClick={() => scrollToSection('skills')}>Tech skills</Tab>
-      <Tab setPosition={setPosition} onClick={() => scrollToSection('projects')}>Projects</Tab>
-      <Tab setPosition={setPosition} onClick={() => scrollToSection('contact')}>Contact</Tab>
+      {/* Active tab indicator */}
+      <motion.li
+        animate={{ ...activePosition }}
+        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+        className="absolute z-0 top-1.5 bottom-1.5 rounded-full bg-black shadow-sm"
+      />
+      
+      {/* Hover indicator */}
       <Cursor position={position} />
+      
+      <Tab 
+        ref={(el) => (tabRefs.current.home = el)}
+        setPosition={setPosition} 
+        onClick={() => scrollToSection('home')}
+        isActive={activeSection === 'home'}
+        sectionId="home"
+      >
+        Home
+      </Tab>
+      <Tab 
+        ref={(el) => (tabRefs.current.about = el)}
+        setPosition={setPosition} 
+        onClick={() => scrollToSection('about')}
+        isActive={activeSection === 'about'}
+        sectionId="about"
+      >
+        About me
+      </Tab>
+      <Tab 
+        ref={(el) => (tabRefs.current.skills = el)}
+        setPosition={setPosition} 
+        onClick={() => scrollToSection('skills')}
+        isActive={activeSection === 'skills'}
+        sectionId="skills"
+      >
+        Tech skills
+      </Tab>
+      <Tab 
+        ref={(el) => (tabRefs.current.projects = el)}
+        setPosition={setPosition} 
+        onClick={() => scrollToSection('projects')}
+        isActive={activeSection === 'projects'}
+        sectionId="projects"
+      >
+        Projects
+      </Tab>
+      <Tab 
+        ref={(el) => (tabRefs.current.contact = el)}
+        setPosition={setPosition} 
+        onClick={() => scrollToSection('contact')}
+        isActive={activeSection === 'contact'}
+        sectionId="contact"
+      >
+        Contact
+      </Tab>
     </ul>
   );
 };
@@ -255,30 +410,37 @@ interface TabProps {
   children: React.ReactNode;
   setPosition: React.Dispatch<React.SetStateAction<CursorPosition>>;
   onClick?: () => void;
+  isActive: boolean;
+  sectionId: string;
 }
 
-const Tab: React.FC<TabProps> = ({ children, setPosition, onClick }) => {
-  const ref = useRef<HTMLLIElement | null>(null);
-
+const Tab = React.forwardRef<HTMLLIElement, TabProps>(({ children, setPosition, onClick, isActive, sectionId }, ref) => {
   return (
     <li
       ref={ref}
       onMouseEnter={() => {
-        if (!ref.current) return;
-        const { width } = ref.current.getBoundingClientRect();
+        const element = ref as React.RefObject<HTMLLIElement>;
+        if (!element.current) return;
+        const { width } = element.current.getBoundingClientRect();
         setPosition({
-          left: ref.current.offsetLeft,
+          left: element.current.offsetLeft,
           width,
           opacity: 1,
         });
       }}
       onClick={onClick}
-      className="relative font-semibold z-10 block cursor-pointer px-4 py-3 md:px-6 md:py-4 text-sm md:text-base uppercase text-gray-700 hover:text-gray-900 transition-colors duration-200 flex-shrink-0"
+      className={`relative font-semibold z-20 block cursor-pointer px-4 py-3 md:px-6 md:py-4 text-sm md:text-base uppercase transition-all duration-300 flex-shrink-0 ${
+        isActive
+          ? 'text-white'
+          : 'text-gray-700 hover:text-gray-900'
+      }`}
     >
       {children}
     </li>
   );
-};
+});
+
+Tab.displayName = 'Tab';
 
 interface CursorProps {
   position: CursorPosition;
